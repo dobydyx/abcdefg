@@ -170,34 +170,34 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Tanhuajun_SixFhase_MotorCtrl_28377.out \
+OW_FivePhase_NFV_28377S.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Tanhuajun_SixFhase_MotorCtrl_28377.out" \
+"OW_FivePhase_NFV_28377S.out" \
 
 BIN_OUTPUTS += \
-Tanhuajun_SixFhase_MotorCtrl_28377.hex \
+OW_FivePhase_NFV_28377S.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Tanhuajun_SixFhase_MotorCtrl_28377.hex" \
+"OW_FivePhase_NFV_28377S.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "Tanhuajun_SixFhase_MotorCtrl_28377.out"
+	@$(MAKE) --no-print-directory -Onone "OW_FivePhase_NFV_28377S.out"
 
 # Tool invocations
-Tanhuajun_SixFhase_MotorCtrl_28377.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+OW_FivePhase_NFV_28377S.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 -O4 --opt_for_speed=0 --fp_mode=relaxed -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"Tanhuajun_SixFhase_MotorCtrl_28377.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="Tanhuajun_SixFhase_MotorCtrl_28377_linkInfo.xml" --rom_model -o "Tanhuajun_SixFhase_MotorCtrl_28377.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/cl2000" -v28 -ml -mt --cla_support=cla1 --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 -O4 --opt_for_speed=0 --fp_mode=relaxed -g --diag_warning=225 --diag_wrap=off --display_error_number -z -m"OW_FivePhase_NFV_28377S.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --xml_link_info="OW_FivePhase_NFV_28377S_linkInfo.xml" --rom_model -o "OW_FivePhase_NFV_28377S.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-Tanhuajun_SixFhase_MotorCtrl_28377.hex: $(EXE_OUTPUTS)
+OW_FivePhase_NFV_28377S.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: C2000 Hex Utility'
-	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/hex2000"  -o "Tanhuajun_SixFhase_MotorCtrl_28377.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/hex2000"  -o "OW_FivePhase_NFV_28377S.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 

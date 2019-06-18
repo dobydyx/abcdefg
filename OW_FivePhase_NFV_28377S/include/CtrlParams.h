@@ -23,15 +23,15 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 
 //控制参数
 #define ERRORFLAG 0                                    // 容错标志位 0：正常；1：故障
-#define LOOP_FLAG 2                                     // 0：速度，电流开环；1：速度开环，电流闭环；2：速度，电流闭环，3：MPC
-#define GIVEN_VEL 50                                  // LOOP_FLAG   2状态          给定速度
-#define GIVEN_TORQUE 80                                 // LOOP_FLAG 1,2状态          给定Torque
-#define GIVEN_ID 0                                      // LOOP_FLAG 1,2状态          给定id
-#define GIVEN_IQ 4                                      // LOOP_FLAG   1状态          给定iq
-#define GIVEN_IX 0                                      // LOOP_FLAG 1,2状态          给定ix
-#define GIVEN_IY 0                                      // LOOP_FLAG 1,2状态          给定iy
-#define GIVEN_UD 0                                      // LOOP_FLAG   0状态          给定ud
-#define GIVEN_UQ 10                                     // LOOP_FLAG   0状态          给定uq
+#define LOOP_FLAG 2                                    // 0：速度，电流开环；1：速度开环，电流闭环；2：速度，电流闭环，3：MPC
+#define GIVEN_VEL 50                                   // LOOP_FLAG   2状态          给定速度
+#define GIVEN_TORQUE 80                                // LOOP_FLAG 1,2状态          给定Torque
+#define GIVEN_ID 0                                     // LOOP_FLAG 1,2状态          给定id
+#define GIVEN_IQ 4                                     // LOOP_FLAG   1状态          给定iq
+#define GIVEN_IX 0                                     // LOOP_FLAG 1,2状态          给定ix
+#define GIVEN_IY 0                                     // LOOP_FLAG 1,2状态          给定iy
+#define GIVEN_UD 0                                     // LOOP_FLAG   0状态          给定ud
+#define GIVEN_UQ 10                                    // LOOP_FLAG   0状态          给定uq
 
 //传感器参数
 #define SENSOR 0                                        // 传感器类型，0：光电编码器；1：旋转变压器；2：磁栅尺

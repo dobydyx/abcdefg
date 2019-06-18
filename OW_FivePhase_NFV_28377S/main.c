@@ -85,7 +85,7 @@ int main(void)
 //  Enable global Interrupts and higher priority real-time debug events:
     EINT;  // Enable Global interrupt INTM
     ERTM;  // Enable Global realtime interrupt DBGM
-//  按键初始化end
+
 
 //  test code end
     while(1)
@@ -123,11 +123,11 @@ interrupt void EPWM1_ISR(void)
     ************************************************************/
     LineCurSamp(IOriSCS);                    //电流采样
 
-    ElecTheta = ElecThetaCal(ElecTheta);        //电角度计算
+    ElecTheta = ElecThetaCal(ElecTheta);     //电角度计算
     ClarkTrans(IOriSCS, I2pSCS);
     ParkTrans(I2pSCS, ElecTheta, I2pRCS);    //坐标变换
 
-    Velocity = VelocityCal(Velocity);                      //速度计算
+    Velocity = VelocityCal(Velocity);        //速度计算
 
     if(VelCtrlCNT++ == 50)
     {
@@ -137,18 +137,8 @@ interrupt void EPWM1_ISR(void)
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
     CtrlAlgo(IdPID.pidout, IqPID.pidout, Udc, ElecTheta, DutyCycle);
-//        CtrlAlgo(0, 5, Udc, ElecTheta, DutyCycle);
-//    for(i=0; i<12; i++)
-//        DutyCycle[0]=0;
-//        DutyCycle[1]=1;
-//        DutyCycle[2]=1;
+
     SetCMP(DutyCycle);
-//    SetDACaValue((I2pRCS[0])*100+500);  //Id
-//    SetDACbValue((I2pRCS[1])*100+500);  //Iq
-//    SetDACaValue((I2pRCS[2])*100+500); //X
-//    SetDACbValue((I2pRCS[3])*100+500);//Y
-//    SetDACaValue(Velocity*4.55);//速度
-//    SetDACbValue(DutyCycle[0]*1365);//占空比
 
 //-----------------------------------------------
 //  电机启停控制

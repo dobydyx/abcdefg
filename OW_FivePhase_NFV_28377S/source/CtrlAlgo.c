@@ -12,7 +12,7 @@ Description:用户定义控制算法函数
 #include "F28x_Project.h"
 #include "CtrlParams.h"
 
-    extern float ob2, ob3;
+extern float ob2, ob3;
 
 
 #if PHASE == 3
