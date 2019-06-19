@@ -12,10 +12,10 @@ Description:用户定义控制算法函数
 #include "F28x_Project.h"
 #include "CtrlParams.h"
 
-extern float ob2, ob3;
+extern float ob1, ob2, ob3,ob4,ob5;
 
 
-#if PHASE == 3
+#if PHASE == 3 //三相电机CBPWM
 void ClarkTrans(float abc[], float ab0[]);
 void IClarkTrans(float ab0[], float abc[]);
 void ParkTrans(float ab0[], float theta, float dq0[]);
@@ -54,7 +54,7 @@ void CtrlAlgo(float ud, float uq, float udc, float theta, float duty[])   //SVPW
 }
 #endif
 
-#if (PHASE == 5 & LOOP_FLAG !=3)//非MPC算法
+#if (PHASE == 5 && PWM_NUM == 5)//五相电机CBPWM
 void ClarkTrans(float abcde[], float abxy0[]);
 void IClarkTrans(float abxy0[], float abcde[]);
 void ParkTrans(float abxy0[], float theta, float dqxy0[]);
@@ -103,18 +103,241 @@ void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, 
 }
 #endif
 
-#if (PHASE == 5 & LOOP_FLAG ==3)//MPC算法
+#if (PHASE == 5 && PWM_NUM == 10)//开绕组五相电机SVPWM
 void ClarkTrans(float abcde[], float abxy0[]);
 void IClarkTrans(float abxy0[], float abcde[]);
 void ParkTrans(float abxy0[], float theta, float dqxy0[]);
 void IParkTrans(float dqxy0[], float theta, float abxy0[]);
-void CtrlAlgo(float iq1ref, float id1ref, float id1, float iq1, float OmegaE, float theta, float index_old,float index,float duty[])
+void NTV_SVPWM(float abxy0[], float Udc,float duty[],int out);
+void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
+{
+    float x=abxy0[0];
+    float y=abxy0[1];
+    int   n=Udc;
+    float a=0.2764;
+    float SIN1=0.587785252;
+    float SIN2=0.951056516;
+    float COS1=0.809016994;
+    float COS2=0.309016994;
+    float value1,value2,value3,value4;
+    float T1,T2,T3,T4;
+    float duty_a,duty_b,duty_c,duty_d,duty_e;
+    value1 = y*SIN1 - x*COS1;
+    value2 = y*SIN2 - x*COS2;
+    value3 = y*SIN2 + x*COS2;
+    value4 = y*SIN1 + x*COS1;
+
+    if (y > 0.0)
+    {
+        if (x > 0.0)
+        {
+            if (y > 1.3764*x)
+            {
+              out=1;
+              T1  = __divf32((a*value1),(0.4*n*SIN1));
+              T2  = __divf32(((1 - a)*x),(0.6472*n*SIN1));
+              T3  = __divf32(((1 - a)*value1),(0.6472*n*SIN1));
+              T4  = __divf32((a*x),(0.4*n*SIN1));
+              duty_d = 0.5*(1.0 - T1 - T2 - T3 - T4);
+              duty_a = 1.0 - duty_d;
+              duty_c = duty_d + T4;
+              duty_e = duty_c + T3;
+              duty_b = duty_e + T2;
+            }
+            else  if (y < 0.3249*x)
+            {
+             out=3;
+             T1  = a*value3/(0.4*n*SIN1);
+             T2  = (1 - a)*(-value2)/(0.6472*n*SIN1);
+             T3  = (1 - a)*value3/(0.6472*n*SIN1);
+             T4  = a*(-value2)/(0.4*n*SIN1);
+             duty_e = 0.5*(1.0 - T1 - T2 - T3 - T4);
+             duty_b = 1.0 - duty_e;
+             duty_d = duty_e + T4;
+             duty_a = duty_d + T3;
+             duty_c = duty_a + T2;
+             }
+             else
+             {
+              out=2;
+              T1  = a*(-value1)/(0.4*n*SIN1);
+              T2  = (1 - a)*value2/(0.6472*n*SIN1);
+              T3  = (1 - a)*(-value1)/(0.6472*n*SIN1);
+              T4  = a*value2/(0.4*n*SIN1);
+              duty_d = 0.5*(1.0 - T1 - T2 - T3 - T4);
+              duty_b = 1.0 - duty_d;
+              duty_e = duty_d + T4;
+              duty_c = duty_e + T3;
+              duty_a = duty_c + T2;
+             }
+        }
+        else //x <= 0.0
+        {
+            if (y > -1.3764*x)
+            {
+              out=10;
+              T1  = a*value4 /(0.4*n*SIN1);
+              T2  = (1 - a)*(-x)/(0.6472*n*SIN1);
+              T3  = (1 - a)*value4/(0.6472*n*SIN1);
+              T4  = a*(-x)/(0.4*n*SIN1);
+              duty_c = 0.5*(1.0 - T1 - T2 - T3 - T4);
+              duty_a = 1.0 - duty_c;
+              duty_d = duty_c + T4;
+              duty_b = duty_d + T3;
+              duty_e = duty_b + T2;
+            }
+            else if (y < -0.3249*x)
+            {
+             out=8;
+             T1  = a*value2/(0.4*n*SIN1);
+             T2  = (1 - a)*(-value3)/(0.6472*n*SIN1);
+             T3  = (1 - a)*value2/(0.6472*n*SIN1);
+             T4  = a*(-value3)/(0.4*n*SIN1);
+             duty_b = 0.5*(1.0 - T1 - T2 - T3 - T4);
+             duty_e = 1.0 - duty_b;
+             duty_c = duty_b + T4;
+             duty_a = duty_c + T3;
+             duty_d = duty_a + T2;
+            }
+            else
+            {
+            out=9;
+            T1  = a*(-value4)/(0.4*n*SIN1);
+            T2  = (1 - a)*value3/(0.6472*n*SIN1);
+            T3  = (1 - a)*(-value4)/(0.6472*n*SIN1);
+            T4  = a*value3/(0.4*n*SIN1);
+            duty_c = 0.5*(1.0 - T1 - T2 - T3 - T4);
+            duty_e = 1.0 - duty_c;
+            duty_b = duty_c + T4;
+            duty_d = duty_b + T3;
+            duty_a = duty_d + T2;
+            }
+        }
+    }
+    else   //y <= 0.0
+    {
+        if (x > 0.0)
+        {
+          if (y < -1.3764*x)
+          {
+              out=5;
+              T1  = a*x/(0.4*n*SIN1);
+              T2  = (1 - a)*(-value4)/(0.6472*n*SIN1);
+              T3  = (1 - a)*x/(0.6472*n*SIN1);
+              T4  = a*(-value4)/(0.4*n*SIN1);
+              duty_a = 0.5*(1.0 - T1 - T2 - T3 - T4);
+              duty_c = 1.0 - duty_a;
+              duty_e = duty_a + T4;
+              duty_b = duty_e + T3;
+              duty_d = duty_b + T2;
+          }
+          else  if (y > -0.3249*x)
+          {
+                 out=3;
+                 T1  = a*value3/(0.4*n*SIN1);
+                 T2  = (1 - a)*(-value2)/(0.6472*n*SIN1);
+                 T3  = (1 - a)*value3/(0.6472*n*SIN1);
+                 T4  = a*(-value2)/(0.4*n*SIN1);
+                 duty_e = 0.5*(1.0 - T1 - T2 - T3 - T4);
+                 duty_b = 1.0 - duty_e;
+                 duty_d = duty_e + T4;
+                 duty_a = duty_d + T3;
+                 duty_c = duty_a + T2;
+          }
+          else
+          {
+                 out=4;
+                 T1  = a*(-value3)/(0.4*n*SIN1);
+                 T2  = (1 - a)*value4/(0.6472*n*SIN1);
+                 T3  = (1 - a)*(-value3)/(0.6472*n*SIN1);
+                 T4  = a*value4/(0.4*n*SIN1);
+                 duty_e = 0.5*(1.0 - T1 - T2 - T3 - T4);
+                 duty_c = 1.0 - duty_e;
+                 duty_a = duty_e + T4;
+                 duty_d = duty_a + T3;
+                 duty_b = duty_d + T2;
+          }
+        }
+        else //x <= 0.0
+        {
+            if (y < 1.3764*x)
+            {
+                out=6;
+                T1  = a*(-x)/(0.4*n*SIN1);
+                T2  = (1 - a)*(-value1)/(0.6472*n*SIN1);
+                T3  = (1 - a)*(-x)/(0.6472*n*SIN1);
+                T4  = a*(-value1)/(0.4*n*SIN1);
+                duty_a = 0.5*(1.0 - T1 - T2 - T3 - T4);
+                duty_d = 1.0 - duty_a;
+                duty_b = duty_a + T4;
+                duty_e = duty_b + T3;
+                duty_c = duty_e + T2;
+            }
+            else   if (y > 0.3249*x)
+            {
+                   out=8;
+                   T1  = a*value2/(0.4*n*SIN1);
+                   T2  = (1 - a)*(-value3)/(0.6472*n*SIN1);
+                   T3  = (1 - a)*value2/(0.6472*n*SIN1);
+                   T4  = a*(-value3)/(0.4*n*SIN1);
+                   duty_b = 0.5*(1.0 - T1 - T2 - T3 - T4);
+                   duty_e = 1.0 - duty_b;
+                   duty_c = duty_b + T4;
+                   duty_a = duty_c + T3;
+                   duty_d = duty_a + T2;
+            }
+
+                else
+                {
+                   out=7;
+                   T1  = a*(-value2)/(0.4*n*SIN1);
+                   T2  = (1 - a)*value1/(0.6472*n*SIN1);
+                   T3  = (1 - a)*(-value2)/(0.6472*n*SIN1);
+                   T4  = a*value1/(0.4*n*SIN1);
+                   duty_b = 0.5*(1.0 - T1 - T2 - T3 - T4);
+                   duty_d = 1.0 - duty_b;
+                   duty_a = duty_b + T4;
+                   duty_c = duty_a + T3;
+                   duty_e = duty_c + T2;
+                }
+        }
+    }
+    duty[0]=duty_a;
+    duty[1]=duty_b;
+    duty[2]=duty_c;
+    duty[3]=duty_d;
+    duty[4]=duty_e;
+}
+void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[], int out1,int out2)
 {
     /************************************************************
-    Description:五相MPC(单矢量)
-    Input:id1, iq1, iq1ref,id1ref,theta，OmegaE,index_old
-    Output:duty[]，index
+    Description:五相FOC_SVPWM
+    Input:ud, uq, theta
+    Output:duty[]
     ************************************************************/
+    float Uabxy0_OW[5]={0,0,0,0,0}; //静止坐标系
+    float Uabxy0_I1[5]={0,0,0,0,0}; //静止坐标系 第一个逆变器
+    float Uabxy0_I2[5]={0,0,0,0,0}; //静止坐标系 第二个逆变器
+    float Udqxy0[5]={ud, uq, ux, uy, 0};
+    float duty_I1[5]={0,0,0,0,0};
+    float duty_I2[5]={0,0,0,0,0};
+    int i=0;
+
+    IParkTrans(Udqxy0,theta,Uabxy0_OW);
+    for(i = 0; i < 5; i++)
+        {
+            Uabxy0_I1[i]= 0.5 * Uabxy0_OW[i];
+            Uabxy0_I2[i]=-0.5 * Uabxy0_OW[i];
+        }
+    NTV_SVPWM(Uabxy0_I1,udc[0],duty_I1,out1);
+    NTV_SVPWM(Uabxy0_I2,udc[0],duty_I2,out2);
+    for(i = 0; i < 10; i++)
+    {
+        if( i < 5 )
+        duty[i]=duty_I1[i];
+        else
+        duty[i]=duty_I2[i-5];
+    }
 
 }
 #endif

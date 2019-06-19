@@ -16,7 +16,7 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 //系统参数
 //#define _FLASH                                        // FLASH烧写，若烧RAM注释该行
 #define SYS_FREQ 200000                                 // 系统主频200000k
-#define SWICH_FREQ 20                                // 开关频率10k
+#define SWICH_FREQ 20                                   // 开关频率10k
 #define TS   0.00005                 //0.00005 采样周期 1/10k
 #define EPWM_PRD SYS_FREQ / (4 * SWICH_FREQ)            // 无需修改，自动计算得到。ePWM模块频率(100000k)默认为1/2主频(200000k)，三角载波周期为2*EPWMPRD
 #define DB_TIME 200                                     // 死区时间DBTIME/ePWM模块频率，200M下，400->4us
@@ -41,8 +41,8 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 //电机参数
 #define POLE_PAIRS 3                                    // 旋转电机极对数，直线电机改为1
 #define POLE_PITCH 0.0147                               // 直线电机磁极距
-#define PHASE 6                                         // 电机相数
-#define PWM_NUM 6                                      // PWM信号对数
+#define PHASE 5                                         // 电机相数
+#define PWM_NUM 10                                      // PWM信号对数
 #define MOTOR_RS 1.0                                    // 电机定子电阻(Ω)
 #define MOTOR_LS 0.003                                // 电机定子电感(H)
 #define MOTOR_LD 0.003                                 // 电机d轴电感(H)

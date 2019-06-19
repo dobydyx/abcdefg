@@ -31,7 +31,8 @@ float ElecTheta = 0;                             //电角度(rad)
 float IOriSCS[PHASE] = {0};                             //原始静止坐标系电流(A)
 float I2pSCS[PHASE] = {0};                              //两相静止坐标系电流(A)
 float I2pRCS[PHASE] = {0};                              //两相旋转坐标系电流(A)
-
+int     out1=0;
+int     out2;
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
 float Udc = 50;
@@ -133,10 +134,11 @@ interrupt void EPWM1_ISR(void)
     {
         PIDCtrl(&VelocityPID, GIVEN_VEL - Velocity, VEL_KP, VEL_KI, VEL_UPLIM, VEL_DNLIM);
         VelCtrlCNT = 1;
-    }                                                      //速度控制，100倍的电流控制周期，判断顺序待调整
+    }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
-    CtrlAlgo(IdPID.pidout, IqPID.pidout, Udc, ElecTheta, DutyCycle);
+//    CtrlAlgo(IdPID.pidout, IqPID.pidout, Udc, ElecTheta, DutyCycle,out1,out2);
+    CtrlAlgo(0, 4, 200, 2, DutyCycle,out1,out2);
 
     SetCMP(DutyCycle);
 

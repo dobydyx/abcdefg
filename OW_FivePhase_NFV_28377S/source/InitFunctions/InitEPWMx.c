@@ -438,21 +438,23 @@ void InitEPwm12(void)
 
 void InitEPwms(void)
 {
-#if (PWM_NUM == 3 || PWM_NUM == 6 || PWM_NUM == 12)
+#if (PWM_NUM == 3 || PWM_NUM == 6 || PWM_NUM == 10|| PWM_NUM == 12 )
     InitEPwm1();
     InitEPwm2();
     InitEPwm3();
 #endif
-#if (PWM_NUM == 6 || PWM_NUM == 12)
+#if (PWM_NUM == 6 || PWM_NUM == 10 || PWM_NUM == 12 )
     InitEPwm4();
     InitEPwm5();
     InitEPwm6();
 #endif
-#if (PWM_NUM == 12)
+#if (PWM_NUM == 10 || PWM_NUM == 12 )
     InitEPwm7();
     InitEPwm8();
     InitEPwm9();
     InitEPwm10();
+#endif
+#if(PWM_NUM == 12 )
     InitEPwm11();
     InitEPwm12();
 #endif
@@ -465,35 +467,27 @@ void SetCMP(float duty[])
     Input:duty[]
     Output:none
     ************************************************************/
-#if (PWM_NUM == 3 || PWM_NUM == 6 || PWM_NUM == 12)
-/*
- * board1
- */
+#if (PWM_NUM == 3 || PWM_NUM == 6 || PWM_NUM == 10 || PWM_NUM == 12)
+// * board1
     EPwm1Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[0]); //A phase  epwm1
     EPwm2Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[1]); //B phase  epwm2
     EPwm3Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[2]); //C phase  epwm3
 #endif
-#if (PWM_NUM == 6 || PWM_NUM == 12)
-/*
- * board2
- */
+#if (PWM_NUM == 6 || PWM_NUM == 10 || PWM_NUM == 12)
+//* board2
     EPwm4Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[3]); //A phase   epwm4
     EPwm6Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[4]); //B phase   epwm5
     EPwm7Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[5]); //C phase   epwm6
-
 #endif
-#if PWM_NUM == 12
-/*
- * board3
- */
+#if (PWM_NUM == 12 || PWM_NUM == 10)
+//* board3 &* board4
     EPwm8Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[6]); //A phase   epwm7
     EPwm9Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[7]); //B phase   epwm8
     EPwm10Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[8]); //C phase  epwm9
-
-/*
- * board1
- */
     EPwm11Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[9]); //A phase   epwm10
+#endif
+#if (PWM_NUM == 12)
+//* board4
     EPwm5Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[10]); //B phase   epwm11
     EPwm12Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[11]); //C phase  epwm12
 #endif

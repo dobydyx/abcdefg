@@ -185,8 +185,7 @@ void LineCurSamp(float i[])
     i[2] = __divf32(((int)AdccResultRegs.ADCRESULT12 - 1986), 16.06274);  //IC1    (RESULT - 2047.5[偏置]) / (4095 / 100[量程(-50A~50A)])
 #endif
 #if (PHASE == 6 || PHASE == 12)                               //六相电流采样
-    i[3] = __divf32(((int)AdcaResultRegs.ADCRESULT13 - 1986), 16.06274);  //IA2
-    i[4] = __divf32(((int)AdccResultRegs.ADCRESULT11 - 1990), 16.06274);  //IB2
+
     i[5] = __divf32(((int)AdccResultRegs.ADCRESULT13 - 1977), 16.06274);  //IC2
 #endif
 #if (PHASE == 12)
@@ -197,6 +196,13 @@ void LineCurSamp(float i[])
     i[9]  = __divf32(((int)AdcbResultRegs.ADCRESULT13 - 1980), 16.06274);  //IA4
     i[10] = __divf32(((int)AdcbResultRegs.ADCRESULT15 - 1979), 16.06274);  //IB4
     i[11] = __divf32(((int)AdcdResultRegs.ADCRESULT12 - 1979), 16.06274);  //IC4
+#endif
+#if(PHASE == 5 && PWM_NUM == 10)//五相开绕组用
+    i[0] = __divf32(((int)AdcaResultRegs.ADCRESULT12 - 1979), 16.06274);  //IA1
+    i[1] = __divf32(((int)AdcaResultRegs.ADCRESULT14 - 1971), 16.06274);  //IB1
+    i[2] = __divf32(((int)AdccResultRegs.ADCRESULT12 - 1986), 16.06274);  //IC1    (RESULT - 2047.5[偏置]) / (4095 / 100[量程(-50A~50A)])
+    i[3] = __divf32(((int)AdcaResultRegs.ADCRESULT13 - 1986), 16.06274);  //IA2
+    i[4] = __divf32(((int)AdccResultRegs.ADCRESULT11 - 1990), 16.06274);  //IB2
 #endif
 }
 
