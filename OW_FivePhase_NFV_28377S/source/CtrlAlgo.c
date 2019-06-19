@@ -108,7 +108,7 @@ void ClarkTrans(float abcde[], float abxy0[]);
 void IClarkTrans(float abxy0[], float abcde[]);
 void ParkTrans(float abxy0[], float theta, float dqxy0[]);
 void IParkTrans(float dqxy0[], float theta, float abxy0[]);
-void NTV_SVPWM(float abxy0[], float Udc,float duty[],int out);
+void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out);
 void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
 {
     float x=abxy0[0];
@@ -315,15 +315,16 @@ void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, 
     Input:ud, uq, theta
     Output:duty[]
     ************************************************************/
-    float Uabxy0_OW[5]={0,0,0,0,0}; //静止坐标系
+    static float Uabxy0_OW[5]; //静止坐标系
     float Uabxy0_I1[5]={0,0,0,0,0}; //静止坐标系 第一个逆变器
     float Uabxy0_I2[5]={0,0,0,0,0}; //静止坐标系 第二个逆变器
-    float Udqxy0[5]={ud, uq, ux, uy, 0};
+    float Udqxy0[5]={0, 4, 0, 0, 0};
     float duty_I1[5]={0,0,0,0,0};
     float duty_I2[5]={0,0,0,0,0};
     int i=0;
 
     IParkTrans(Udqxy0,theta,Uabxy0_OW);
+//    IClarkTrans(Uabxy0_OW,UABCDE);
     for(i = 0; i < 5; i++)
         {
             Uabxy0_I1[i]= 0.5 * Uabxy0_OW[i];

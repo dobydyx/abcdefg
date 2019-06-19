@@ -25,17 +25,17 @@ Instructions for use:
 
 //***************************************************全局变量***************************************************
 //电机状态变量
-char MotorRunFlag = '0';                                //电机启停标志位
+char MotorRunFlag = '1';                                //电机启停标志位
 float Velocity = 0;                                     //速度(rpm, mps)
 float ElecTheta = 0;                             //电角度(rad)
 float IOriSCS[PHASE] = {0};                             //原始静止坐标系电流(A)
 float I2pSCS[PHASE] = {0};                              //两相静止坐标系电流(A)
 float I2pRCS[PHASE] = {0};                              //两相旋转坐标系电流(A)
-int     out1=0;
+int     out1;
 int     out2;
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
-float Udc = 50;
+float Udc[2] = {200,0};
 //  PID控制器变量
 PID VelocityPID = {0, 0, 0};
 PID IdPID = {0, 0, 0};
@@ -92,6 +92,7 @@ int main(void)
     while(1)
     {
 //  电机启停控制
+//        CtrlAlgo(0, 4, 0, 0 , Udc , 0 , DutyCycle,out1,out2);
         if(EPwm3Regs.ETSEL.bit.INTEN == 0 && (MotorRunFlag == '1' || GpioDataRegs.GPADAT.bit.GPIO25 == 1))
         {
             MotorRunFlag = '1';
@@ -137,8 +138,8 @@ interrupt void EPWM1_ISR(void)
     }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
-//    CtrlAlgo(IdPID.pidout, IqPID.pidout, Udc, ElecTheta, DutyCycle,out1,out2);
-    CtrlAlgo(0, 4, 200, 2, DutyCycle,out1,out2);
+    CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,out1,out2);
+//    CtrlAlgo(0, 4, 0, 0 , Udc , 0, DutyCycle,out1,out2);
 
     SetCMP(DutyCycle);
 
