@@ -35,11 +35,11 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 
 //传感器参数
 #define SENSOR 0                                        // 传感器类型，0：光电编码器；1：旋转变压器；2：磁栅尺
-#define CODER_NUM 10000                                  // 2500旋转编码器线数，直线电机改为一对极下的磁栅尺信号数
+#define CODER_NUM 8192                                  // 2500旋转编码器线数，直线电机改为一对极下的磁栅尺信号数
 #define CODER_LEN 0.005                                 // 磁栅尺信号间距(mm)
 
 //电机参数
-#define POLE_PAIRS 3                                    // 旋转电机极对数，直线电机改为1
+#define POLE_PAIRS 31                                    // 旋转电机极对数，直线电机改为1
 #define POLE_PITCH 0.0147                               // 直线电机磁极距
 #define PHASE 5                                         // 电机相数
 #define PWM_NUM 10                                      // PWM信号对数

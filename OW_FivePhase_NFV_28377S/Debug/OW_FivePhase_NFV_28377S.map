@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v18.1.1                     
 ******************************************************************************
->> Linked Wed Jun 19 21:14:41 2019
+>> Linked Wed Jun 19 21:44:46 2019
 
 OUTPUT FILE NAME:   <OW_FivePhase_NFV_28377S.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00008f8c
@@ -14,9 +14,9 @@ MEMORY CONFIGURATION
 PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000122   000002de  000002de  00000000  RWIX
-  RAMLS0                00008000   00000800  000007f9  00000007  RWIX
+  RAMLS0                00008000   00000800  00000800  00000000  RWIX
   RAMLS1                00008800   00000800  000007fe  00000002  RWIX
-  RAMLS2                00009000   00000800  000005a5  0000025b  RWIX
+  RAMLS2                00009000   00000800  000005a0  00000260  RWIX
   RAMLS3                00009800   00000800  00000000  00000800  RWIX
   RAMLS4                0000a000   00000800  00000000  00000800  RWIX
   RAMD0                 0000b000   00000800  00000800  00000000  RWIX
@@ -601,13 +601,13 @@ CpuSysRegsFile
                   00000126    000002b2     InitADCx.obj (.text)
                   000003d8    00000028     F2837xS_PieCtrl.obj (.text)
 
-.text.2    0    00008000    000007f9     
+.text.2    0    00008000    00000800     
                   00008000    00000571     F2837xS_DefaultISR.obj (.text:retain)
                   00008571    00000159     F2837xS_EPwm.obj (.text)
-                  000086ca    0000012a     main.obj (.text:retain)
-                  000087f4    00000003     F2837xS_DBGIER.obj (.text)
-                  000087f7    00000001     rts2800_fpu32.lib : _lock.c.obj (.text)
-                  000087f8    00000001                       : startup.c.obj (.text)
+                  000086ca    00000131     main.obj (.text:retain)
+                  000087fb    00000003     F2837xS_DBGIER.obj (.text)
+                  000087fe    00000001     rts2800_fpu32.lib : _lock.c.obj (.text)
+                  000087ff    00000001                       : startup.c.obj (.text)
 
 .text.3    0    00008800    000007fe     
                   00008800    0000041a     InitEPWMx.obj (.text)
@@ -615,21 +615,21 @@ CpuSysRegsFile
                   00008f8c    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
                   00008fe2    0000001c                       : memcpy.c.obj (.text)
 
-.text.4    0    00009000    000005a5     
+.text.4    0    00009000    000005a0     
                   00009000    000000f3     CoordTrans.obj (.text)
-                  000090f3    000000d8     CtrlCal.obj (.text)
-                  000091cb    000000d0     F2837xS_TempSensorConv.obj (.text)
-                  0000929b    000000cf     F2837xS_Adc.obj (.text)
-                  0000936a    0000008a     main.obj (.text)
-                  000093f4    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
-                  0000947c    0000004a     InitDACx.obj (.text)
-                  000094c6    00000030     InitEQEPx.obj (.text)
-                  000094f6    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
-                  0000951f    00000024                       : cpy_tbl.c.obj (.text)
-                  00009543    0000001f     InitKey.obj (.text)
-                  00009562    00000019     rts2800_fpu32.lib : args_main.c.obj (.text)
-                  0000957b    00000019                       : prolog28.asm.obj (.text)
-                  00009594    00000011     F2837xS_PieVect.obj (.text)
+                  000090f3    000000d3     CtrlCal.obj (.text)
+                  000091c6    000000d0     F2837xS_TempSensorConv.obj (.text)
+                  00009296    000000cf     F2837xS_Adc.obj (.text)
+                  00009365    0000008a     main.obj (.text)
+                  000093ef    00000088     rts2800_fpu32.lib : fs_div28.asm.obj (.text)
+                  00009477    0000004a     InitDACx.obj (.text)
+                  000094c1    00000030     InitEQEPx.obj (.text)
+                  000094f1    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  0000951a    00000024                       : cpy_tbl.c.obj (.text)
+                  0000953e    0000001f     InitKey.obj (.text)
+                  0000955d    00000019     rts2800_fpu32.lib : args_main.c.obj (.text)
+                  00009576    00000019                       : prolog28.asm.obj (.text)
+                  0000958f    00000011     F2837xS_PieVect.obj (.text)
 
 .text.5    0    0000b000    00000800     
                   0000b000    00000573     CtrlAlgo.obj (.text)
@@ -643,17 +643,17 @@ MODULE SUMMARY
        Module                                   code   initialized data   uninitialized data
        ------                                   ----   ----------------   ------------------
     .\
-       main.obj                                 436    95                 94                
+       main.obj                                 443    95                 94                
     +--+----------------------------------------+------+------------------+--------------------+
-       Total:                                   436    95                 94                
+       Total:                                   443    95                 94                
                                                                                             
     .\source\
        CtrlAlgo.obj                             1395   30                 30                
        CoordTrans.obj                           243    0                  0                 
-       CtrlCal.obj                              216    0                  1                 
+       CtrlCal.obj                              211    0                  1                 
        SenlessCal.obj                           0      0                  32                
     +--+----------------------------------------+------+------------------+--------------------+
-       Total:                                   1854   30                 63                
+       Total:                                   1849   30                 63                
                                                                                             
     .\source\InitFunctions\
        InitEPWMx.obj                            1050   0                  0                 
@@ -685,7 +685,7 @@ MODULE SUMMARY
        Total:                                   3740   452                9270              
                                                                                             
     C:\Users\ADMINI~1\AppData\Local\Temp\
-       {F23A81BC-3CE5-41DE-88F6-D1072CBAADFA}   0      173                0                 
+       {E5F399C5-76D8-4B99-AF92-169043AF0658}   0      173                0                 
     +--+----------------------------------------+------+------------------+--------------------+
        Total:                                   0      173                0                 
                                                                                             
@@ -706,7 +706,7 @@ MODULE SUMMARY
                                                                                             
        Stack:                                   0      0                  512               
     +--+----------------------------------------+------+------------------+--------------------+
-       Grand Total:                             8316   764                9949              
+       Grand Total:                             8318   764                9949              
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -942,8 +942,8 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                                  
 ----  -------   ----                                  
 abs   ffffffff  .text                                 
-0     000094f6  C$$EXIT                               
-0     000093f4  FS$$DIV                               
+0     000094f1  C$$EXIT                               
+0     000093ef  FS$$DIV                               
 0     00008567  _ADCA1_ISR                            
 0     0000855d  _ADCA2_ISR                            
 0     00008553  _ADCA3_ISR                            
@@ -966,7 +966,7 @@ abs   ffffffff  .text
 0     000084a9  _ADCD_EVT_ISR                         
 0     0000849f  _AUX_PLL_SLIP_ISR                     
 1     0005f4c0  _AccessProtectionRegs                 
-0     0000929b  _AdcSetMode                           
+0     00009296  _AdcSetMode                           
 1     00007400  _AdcaRegs                             
 1     00000b00  _AdcaResultRegs                       
 1     00007480  _AdcbRegs                             
@@ -1062,7 +1062,7 @@ abs   ffffffff  .text
 0     00008348  _EPWM11_TZ_ISR                        
 0     0000833e  _EPWM12_ISR                           
 0     00008334  _EPWM12_TZ_ISR                        
-0     000086fe  _EPWM1_ISR                            
+0     00008701  _EPWM1_ISR                            
 0     0000832a  _EPWM1_TZ_ISR                         
 0     00008320  _EPWM2_ISR                            
 0     00008316  _EPWM2_TZ_ISR                         
@@ -1101,7 +1101,7 @@ abs   ffffffff  .text
 1     00005140  _EQep2Regs                            
 1     00005180  _EQep3Regs                            
 1     0000aa06  _ElecTheta                            
-0     0000916b  _ElecThetaCal                         
+0     00009167  _ElecThetaCal                         
 1     0005f480  _Emif1ConfigRegs                      
 1     00047000  _Emif1Regs                            
 1     0005f4a0  _Emif2ConfigRegs                      
@@ -1131,8 +1131,8 @@ abs   ffffffff  .text
 0     0000b5c4  _GPIO_SetupXINT4Gpio                  
 0     0000b5bd  _GPIO_SetupXINT5Gpio                  
 0     0000b5a3  _GPIO_WritePin                        
-0     00009254  _GetTemperatureC                      
-0     00009214  _GetTemperatureK                      
+0     0000924f  _GetTemperatureC                      
+0     0000920f  _GetTemperatureK                      
 1     00007c00  _GpioCtrlRegs                         
 1     00007f00  _GpioDataRegs                         
 0     00008f5a  _HALT                                 
@@ -1157,7 +1157,7 @@ abs   ffffffff  .text
 1     0000aa0e  _IdPID                                
 0     000003ac  _InitADCs                             
 0     00008e56  _InitAuxPll                           
-0     00009491  _InitDACs                             
+0     0000948c  _InitDACs                             
 0     00008653  _InitEPwm10Gpio                       
 0     00008677  _InitEPwm11Gpio                       
 0     0000868d  _InitEPwm12Gpio                       
@@ -1173,19 +1173,19 @@ abs   ffffffff  .text
 0     000086b1  _InitEPwmGpio                         
 0     00008951  _InitEPwms                            
 0     0000b7f1  _InitEQep                             
-0     000094c6  _InitEQep1                            
+0     000094c1  _InitEQep1                            
 0     0000b73c  _InitEQep1Gpio                        
 0     0000b76b  _InitEQep2Gpio                        
 0     0000b796  _InitEQep3Gpio                        
 0     0000b7ea  _InitEQepGpio                         
 0     0000b573  _InitGpio                             
-0     00009543  _InitKey                              
+0     0000953e  _InitKey                              
 0     00008d4d  _InitPeripheralClocks                 
 0     000003d8  _InitPieCtrl                          
-0     00009594  _InitPieVectTable                     
+0     0000958f  _InitPieVectTable                     
 0     00008df6  _InitSysCtrl                          
 0     00008c81  _InitSysPll                           
-0     000091cb  _InitTempSensor                       
+0     000091c6  _InitTempSensor                       
 1     00007900  _InputXbarRegs                        
 1     0000aa20  _IqPID                                
 1     0000aa1a  _IxPID                                
@@ -1206,7 +1206,7 @@ abs   ffffffff  .text
 0     0000b000  _NTV_SVPWM                            
 1     00007060  _NmiIntruptRegs                       
 1     00007a80  _OutputXbarRegs                       
-0     0000913d  _PIDCtrl                              
+0     00009139  _PIDCtrl                              
 0     000081b8  _PIE_RESERVED_ISR                     
 0     00009000  _ParkTrans                            
 0     000002df  _PhaseVoltSamp                        
@@ -1250,10 +1250,10 @@ abs   ffffffff  .text
 0     00008c48  _SeizeFlashPump_Bank1                 
 0     00008c3a  _ServiceDog                           
 0     00008800  _SetCMP                               
-0     0000948a  _SetDACaValue                         
-0     00009483  _SetDACbValue                         
-0     0000947c  _SetDACcValue                         
-0     000087f4  _SetDBGIER                            
+0     00009485  _SetDACaValue                         
+0     0000947e  _SetDACbValue                         
+0     00009477  _SetDACcValue                         
+0     000087fb  _SetDBGIER                            
 0     00000190  _SetupADCContinuous                   
 1     00006100  _SpiaRegs                             
 1     00006110  _SpibRegs                             
@@ -1310,30 +1310,30 @@ abs   ffffffff  ___c_args__
 abs   ffffffff  ___etext__                            
 abs   ffffffff  ___pinit__                            
 abs   ffffffff  ___text__                             
-0     00009562  __args_main                           
+0     0000955d  __args_main                           
 1     0000a9fe  __lock                                
-0     000087f7  __nop                                 
+0     000087fe  __nop                                 
 1     00000400  __stack                               
-0     000087f8  __system_post_cinit                   
+0     000087ff  __system_post_cinit                   
 0     0000b7fe  __system_pre_init                     
 1     0000aa7c  __unlock                              
-0     000094f6  _abort                                
+0     000094f1  _abort                                
 0     00008f8c  _c_int00                              
-0     0000951f  _copy_in                              
+0     0000951a  _copy_in                              
 1     0000aa7f  _deviceOpen                           
 1     0000a9e0  _e2pscs                               
 0     0000b7f2  _epilog_c28x_1                        
 0     0000b7f6  _epilog_c28x_2                        
-0     000094f8  _exit                                 
+0     000094f3  _exit                                 
 1     0000aa08  _i                                    
-0     0000936a  _main                                 
+0     00009365  _main                                 
 0     00008fe2  _memcpy                               
 1     0000aa02  _out1                                 
 1     0000aa03  _out2                                 
 1     0000a9de  _pllout                               
-0     0000957b  _prolog_c28x_1                        
-0     0000957f  _prolog_c28x_2                        
-0     00009587  _prolog_c28x_3                        
+0     00009576  _prolog_c28x_1                        
+0     0000957a  _prolog_c28x_2                        
+0     00009582  _prolog_c28x_3                        
 1     0000aaf4  _tempSensor_scaleFactor               
 1     0000aaf2  _tempSensor_tempOffset                
 1     0000aaf6  _tempSensor_tempSlope                 
@@ -1514,10 +1514,10 @@ page  address   name
 0     0000868d  _InitEPwm12Gpio                       
 0     000086b1  _InitEPwmGpio                         
 0     000086ca  _EQEP1_ISR                            
-0     000086fe  _EPWM1_ISR                            
-0     000087f4  _SetDBGIER                            
-0     000087f7  __nop                                 
-0     000087f8  __system_post_cinit                   
+0     00008701  _EPWM1_ISR                            
+0     000087fb  _SetDBGIER                            
+0     000087fe  __nop                                 
+0     000087ff  __system_post_cinit                   
 0     00008800  _SetCMP                               
 0     00008951  _InitEPwms                            
 0     00008c1a  _SysXtalOscSel                        
@@ -1546,29 +1546,29 @@ page  address   name
 0     00009000  _ParkTrans                            
 0     0000902a  _ClarkTrans                           
 0     000090f3  _VelocityCal                          
-0     0000913d  _PIDCtrl                              
-0     0000916b  _ElecThetaCal                         
-0     000091cb  _InitTempSensor                       
-0     00009214  _GetTemperatureK                      
-0     00009254  _GetTemperatureC                      
-0     0000929b  _AdcSetMode                           
-0     0000936a  _main                                 
-0     000093f4  FS$$DIV                               
-0     0000947c  _SetDACcValue                         
-0     00009483  _SetDACbValue                         
-0     0000948a  _SetDACaValue                         
-0     00009491  _InitDACs                             
-0     000094c6  _InitEQep1                            
-0     000094f6  C$$EXIT                               
-0     000094f6  _abort                                
-0     000094f8  _exit                                 
-0     0000951f  _copy_in                              
-0     00009543  _InitKey                              
-0     00009562  __args_main                           
-0     0000957b  _prolog_c28x_1                        
-0     0000957f  _prolog_c28x_2                        
-0     00009587  _prolog_c28x_3                        
-0     00009594  _InitPieVectTable                     
+0     00009139  _PIDCtrl                              
+0     00009167  _ElecThetaCal                         
+0     000091c6  _InitTempSensor                       
+0     0000920f  _GetTemperatureK                      
+0     0000924f  _GetTemperatureC                      
+0     00009296  _AdcSetMode                           
+0     00009365  _main                                 
+0     000093ef  FS$$DIV                               
+0     00009477  _SetDACcValue                         
+0     0000947e  _SetDACbValue                         
+0     00009485  _SetDACaValue                         
+0     0000948c  _InitDACs                             
+0     000094c1  _InitEQep1                            
+0     000094f1  C$$EXIT                               
+0     000094f1  _abort                                
+0     000094f3  _exit                                 
+0     0000951a  _copy_in                              
+0     0000953e  _InitKey                              
+0     0000955d  __args_main                           
+0     00009576  _prolog_c28x_1                        
+0     0000957a  _prolog_c28x_2                        
+0     00009582  _prolog_c28x_3                        
+0     0000958f  _InitPieVectTable                     
 0     0000b000  _NTV_SVPWM                            
 0     0000b4cb  _CtrlAlgo                             
 0     0000b573  _InitGpio                             

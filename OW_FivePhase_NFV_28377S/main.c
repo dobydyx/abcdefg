@@ -144,8 +144,8 @@ interrupt void EPWM1_ISR(void)
 //    {
 //        DutyCycle[i]=0.05*i;
 //    }
-    SetDACaValue(2047);
-    SetDACbValue(4095);
+    SetDACaValue(out1*400);
+    SetDACbValue(out2*400);
     SetCMP(DutyCycle);
 //-----------------------------------------------
 //  电机启停控制
