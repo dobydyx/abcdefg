@@ -4,7 +4,7 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.6
+CG_TOOL_ROOT := C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
@@ -28,9 +28,9 @@ ORDERED_OBJS += \
 "./absolute_encoder.obj" \
 "./main.obj" \
 $(GEN_CMDS__FLAG) \
--l"2837xS_Generic_FLASH_lnk.cmd" \
--l"F2837xS_Headers_nonBIOS.cmd" \
--l"libc.a" \
+-l2837xS_Generic_FLASH_lnk.cmd \
+-lF2837xS_Headers_nonBIOS.cmd \
+-llibc.a \
 
 -include ../makefile.init
 
@@ -44,89 +44,92 @@ RMDIR := RMDIR /S/Q
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(S_DEPS)),)
--include $(S_DEPS)
-endif
-ifneq ($(strip $(S_UPPER_DEPS)),)
--include $(S_UPPER_DEPS)
-endif
-ifneq ($(strip $(S62_DEPS)),)
--include $(S62_DEPS)
-endif
-ifneq ($(strip $(C64_DEPS)),)
--include $(C64_DEPS)
-endif
-ifneq ($(strip $(ASM_DEPS)),)
--include $(ASM_DEPS)
-endif
-ifneq ($(strip $(CC_DEPS)),)
--include $(CC_DEPS)
-endif
-ifneq ($(strip $(S55_DEPS)),)
--include $(S55_DEPS)
-endif
-ifneq ($(strip $(C67_DEPS)),)
--include $(C67_DEPS)
-endif
-ifneq ($(strip $(CLA_DEPS)),)
--include $(CLA_DEPS)
-endif
-ifneq ($(strip $(C??_DEPS)),)
--include $(C??_DEPS)
-endif
-ifneq ($(strip $(CPP_DEPS)),)
--include $(CPP_DEPS)
-endif
-ifneq ($(strip $(S??_DEPS)),)
--include $(S??_DEPS)
-endif
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
-ifneq ($(strip $(C62_DEPS)),)
--include $(C62_DEPS)
-endif
-ifneq ($(strip $(CXX_DEPS)),)
--include $(CXX_DEPS)
-endif
-ifneq ($(strip $(C++_DEPS)),)
--include $(C++_DEPS)
-endif
-ifneq ($(strip $(ASM_UPPER_DEPS)),)
--include $(ASM_UPPER_DEPS)
-endif
-ifneq ($(strip $(K_DEPS)),)
--include $(K_DEPS)
-endif
-ifneq ($(strip $(C43_DEPS)),)
--include $(C43_DEPS)
-endif
-ifneq ($(strip $(INO_DEPS)),)
--include $(INO_DEPS)
-endif
-ifneq ($(strip $(S67_DEPS)),)
--include $(S67_DEPS)
-endif
-ifneq ($(strip $(SA_DEPS)),)
--include $(SA_DEPS)
-endif
-ifneq ($(strip $(S43_DEPS)),)
--include $(S43_DEPS)
-endif
-ifneq ($(strip $(OPT_DEPS)),)
--include $(OPT_DEPS)
-endif
-ifneq ($(strip $(PDE_DEPS)),)
--include $(PDE_DEPS)
-endif
-ifneq ($(strip $(S64_DEPS)),)
--include $(S64_DEPS)
+ifneq ($(strip $(C55_DEPS)),)
+-include $(C55_DEPS)
 endif
 ifneq ($(strip $(C_UPPER_DEPS)),)
 -include $(C_UPPER_DEPS)
 endif
-ifneq ($(strip $(C55_DEPS)),)
--include $(C55_DEPS)
+ifneq ($(strip $(S67_DEPS)),)
+-include $(S67_DEPS)
+endif
+ifneq ($(strip $(S62_DEPS)),)
+-include $(S62_DEPS)
+endif
+ifneq ($(strip $(S_DEPS)),)
+-include $(S_DEPS)
+endif
+ifneq ($(strip $(OPT_DEPS)),)
+-include $(OPT_DEPS)
+endif
+ifneq ($(strip $(C??_DEPS)),)
+-include $(C??_DEPS)
+endif
+ifneq ($(strip $(ASM_UPPER_DEPS)),)
+-include $(ASM_UPPER_DEPS)
+endif
+ifneq ($(strip $(S??_DEPS)),)
+-include $(S??_DEPS)
+endif
+ifneq ($(strip $(C64_DEPS)),)
+-include $(C64_DEPS)
+endif
+ifneq ($(strip $(CXX_DEPS)),)
+-include $(CXX_DEPS)
+endif
+ifneq ($(strip $(S64_DEPS)),)
+-include $(S64_DEPS)
+endif
+ifneq ($(strip $(INO_DEPS)),)
+-include $(INO_DEPS)
+endif
+ifneq ($(strip $(CLA_DEPS)),)
+-include $(CLA_DEPS)
+endif
+ifneq ($(strip $(S55_DEPS)),)
+-include $(S55_DEPS)
+endif
+ifneq ($(strip $(SV7A_DEPS)),)
+-include $(SV7A_DEPS)
+endif
+ifneq ($(strip $(C62_DEPS)),)
+-include $(C62_DEPS)
+endif
+ifneq ($(strip $(C67_DEPS)),)
+-include $(C67_DEPS)
+endif
+ifneq ($(strip $(PDE_DEPS)),)
+-include $(PDE_DEPS)
+endif
+ifneq ($(strip $(K_DEPS)),)
+-include $(K_DEPS)
+endif
+ifneq ($(strip $(C_DEPS)),)
+-include $(C_DEPS)
+endif
+ifneq ($(strip $(CC_DEPS)),)
+-include $(CC_DEPS)
+endif
+ifneq ($(strip $(C++_DEPS)),)
+-include $(C++_DEPS)
+endif
+ifneq ($(strip $(C43_DEPS)),)
+-include $(C43_DEPS)
+endif
+ifneq ($(strip $(S43_DEPS)),)
+-include $(S43_DEPS)
+endif
+ifneq ($(strip $(ASM_DEPS)),)
+-include $(ASM_DEPS)
+endif
+ifneq ($(strip $(S_UPPER_DEPS)),)
+-include $(S_UPPER_DEPS)
+endif
+ifneq ($(strip $(CPP_DEPS)),)
+-include $(CPP_DEPS)
+endif
+ifneq ($(strip $(SA_DEPS)),)
+-include $(SA_DEPS)
 endif
 endif
 
@@ -145,18 +148,18 @@ all: 13kW_1.out
 
 # Tool invocations
 13kW_1.out: $(OBJS) $(GEN_CMDS)
-	@echo 'Building target: $@'
+	@echo 'Building target: "$@"'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.6/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --tmu_support=tmu0 --cla_support=cla1 --vcu_support=vcu2 -O4 -g --define=CPU1 --define=_FLASH --diag_warning=225 --display_error_number --diag_suppress=10063 -z -m"13kW_1.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.6/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.6/include" -i"D:/wz2/28377_weizhihuan/F2837xS_common/cmd" -i"D:/wz2/28377_weizhihuan/F2837xS_headers/cmd" --reread_libs --display_error_number --xml_link_info="13kW_1_linkInfo.xml" --entry_point=code_start --rom_model -o "13kW_1.out" $(ORDERED_OBJS)
-	@echo 'Finished building target: $@'
+	"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 --tmu_support=tmu0 --vcu_support=vcu2 --cla_support=cla1 -O4 -g --define=CPU1 --define=_FLASH --diag_suppress=10063 --diag_warning=225 --display_error_number -z -m"13kW_1.map" --stack_size=0x200 --warn_sections -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/lib" -i"C:/ti/ccsv8/tools/compiler/ti-cgt-c2000_18.1.1.LTS/include" -i"G:/CCSV8_WorkSpace/28377_weizhihuan/F2837xS_common/cmd" -i"G:/CCSV8_WorkSpace/28377_weizhihuan/F2837xS_headers/cmd" --reread_libs --display_error_number --xml_link_info="13kW_1_linkInfo.xml" --entry_point=code_start --rom_model -o "13kW_1.out" $(ORDERED_OBJS)
+	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "AD2S1210.pp" "F2837xS_Adc.pp" "F2837xS_CpuTimers.pp" "F2837xS_DefaultISR.pp" "F2837xS_EPwm.pp" "F2837xS_GlobalVariableDefs.pp" "F2837xS_Gpio.pp" "F2837xS_PieCtrl.pp" "F2837xS_PieVect.pp" "F2837xS_Sci.pp" "F2837xS_Spi.pp" "F2837xS_SysCtrl.pp" "F2837xS_struct.pp" "absolute_encoder.pp" "main.pp" 
 	-$(RM) "AD2S1210.obj" "F2837xS_Adc.obj" "F2837xS_CodeStartBranch.obj" "F2837xS_CpuTimers.obj" "F2837xS_DefaultISR.obj" "F2837xS_EPwm.obj" "F2837xS_GlobalVariableDefs.obj" "F2837xS_Gpio.obj" "F2837xS_PieCtrl.obj" "F2837xS_PieVect.obj" "F2837xS_Sci.obj" "F2837xS_Spi.obj" "F2837xS_SysCtrl.obj" "F2837xS_struct.obj" "F2837xS_usDelay.obj" "absolute_encoder.obj" "main.obj" 
-	-$(RM) "F2837xS_CodeStartBranch.pp" "F2837xS_usDelay.pp" 
+	-$(RM) "AD2S1210.d" "F2837xS_Adc.d" "F2837xS_CpuTimers.d" "F2837xS_DefaultISR.d" "F2837xS_EPwm.d" "F2837xS_GlobalVariableDefs.d" "F2837xS_Gpio.d" "F2837xS_PieCtrl.d" "F2837xS_PieVect.d" "F2837xS_Sci.d" "F2837xS_Spi.d" "F2837xS_SysCtrl.d" "F2837xS_struct.d" "absolute_encoder.d" "main.d" 
+	-$(RM) "F2837xS_CodeStartBranch.d" "F2837xS_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

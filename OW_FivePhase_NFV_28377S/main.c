@@ -25,7 +25,7 @@ Instructions for use:
 
 //***************************************************全局变量***************************************************
 //电机状态变量
-char MotorRunFlag = '1';                                //电机启停标志位
+char MotorRunFlag = '0';                                //电机启停标志位
 float Velocity = 0;                                     //速度(rpm, mps)
 float ElecTheta = 0;                             //电角度(rad)
 float IOriSCS[PHASE] = {0};                             //原始静止坐标系电流(A)
@@ -70,7 +70,7 @@ int main(void)
 
 //  初始化外围设备
     InitADCs();
-//    InitDACs();
+    InitDACs();
     InitEPwms();
     InitEQep1();
 //    InitScib();
@@ -116,7 +116,7 @@ int main(void)
     }
 }
 
-int i=0;
+long int i=0;
 interrupt void EPWM1_ISR(void)
 {
     /************************************************************
@@ -138,11 +138,15 @@ interrupt void EPWM1_ISR(void)
     }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
-    CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,out1,out2);
-//    CtrlAlgo(0, 4, 0, 0 , Udc , 0, DutyCycle,out1,out2);
-
+    CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,&out1,&out2);
+////    CtrlAlgo(0, 4, 0, 0 , Udc , 0, DutyCycle,out1,out2);
+//    for (i=0 ; i<12 ; i++)
+//    {
+//        DutyCycle[i]=0.05*i;
+//    }
+    SetDACaValue(2047);
+    SetDACbValue(4095);
     SetCMP(DutyCycle);
-
 //-----------------------------------------------
 //  电机启停控制
     if(MotorRunFlag == '0' || GpioDataRegs.GPADAT.bit.GPIO24 == 1)
@@ -169,7 +173,7 @@ interrupt void EQEP1_ISR(void)
                 Z信号产生时进入中断，用于清除编码器累计误差
     ************************************************************/
 #if (SENSOR == 0)
-    ElecTheta = 0;          //1.767145867;//1.7197188942232836736510610992797
+    ElecTheta = 5.767;          //1.767145867;//1.7197188942232836736510610992797
 //    ob1++;
 #endif
 

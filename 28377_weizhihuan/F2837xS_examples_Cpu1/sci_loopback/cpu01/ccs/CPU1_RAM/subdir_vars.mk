@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 ASM_SRCS += \
 ../F2837xS_CodeStartBranch.asm \
@@ -20,10 +22,26 @@ C_SRCS += \
 ../F2837xS_Sci.c \
 ../F2837xS_Spi.c \
 ../F2837xS_SysCtrl.c \
-../F2837xS_sdfm.c \
 ../F2837xS_struct.c \
 ../absolute_encoder.c \
 ../main.c 
+
+C_DEPS += \
+./AD2S1210.d \
+./F2837xS_Adc.d \
+./F2837xS_CpuTimers.d \
+./F2837xS_DefaultISR.d \
+./F2837xS_EPwm.d \
+./F2837xS_GlobalVariableDefs.d \
+./F2837xS_Gpio.d \
+./F2837xS_PieCtrl.d \
+./F2837xS_PieVect.d \
+./F2837xS_Sci.d \
+./F2837xS_Spi.d \
+./F2837xS_SysCtrl.d \
+./F2837xS_struct.d \
+./absolute_encoder.d \
+./main.d 
 
 OBJS += \
 ./AD2S1210.obj \
@@ -39,51 +57,14 @@ OBJS += \
 ./F2837xS_Sci.obj \
 ./F2837xS_Spi.obj \
 ./F2837xS_SysCtrl.obj \
-./F2837xS_sdfm.obj \
 ./F2837xS_struct.obj \
 ./F2837xS_usDelay.obj \
 ./absolute_encoder.obj \
 ./main.obj 
 
 ASM_DEPS += \
-./F2837xS_CodeStartBranch.pp \
-./F2837xS_usDelay.pp 
-
-C_DEPS += \
-./AD2S1210.pp \
-./F2837xS_Adc.pp \
-./F2837xS_CpuTimers.pp \
-./F2837xS_DefaultISR.pp \
-./F2837xS_EPwm.pp \
-./F2837xS_GlobalVariableDefs.pp \
-./F2837xS_Gpio.pp \
-./F2837xS_PieCtrl.pp \
-./F2837xS_PieVect.pp \
-./F2837xS_Sci.pp \
-./F2837xS_Spi.pp \
-./F2837xS_SysCtrl.pp \
-./F2837xS_sdfm.pp \
-./F2837xS_struct.pp \
-./absolute_encoder.pp \
-./main.pp 
-
-C_DEPS__QUOTED += \
-"AD2S1210.pp" \
-"F2837xS_Adc.pp" \
-"F2837xS_CpuTimers.pp" \
-"F2837xS_DefaultISR.pp" \
-"F2837xS_EPwm.pp" \
-"F2837xS_GlobalVariableDefs.pp" \
-"F2837xS_Gpio.pp" \
-"F2837xS_PieCtrl.pp" \
-"F2837xS_PieVect.pp" \
-"F2837xS_Sci.pp" \
-"F2837xS_Spi.pp" \
-"F2837xS_SysCtrl.pp" \
-"F2837xS_sdfm.pp" \
-"F2837xS_struct.pp" \
-"absolute_encoder.pp" \
-"main.pp" 
+./F2837xS_CodeStartBranch.d \
+./F2837xS_usDelay.d 
 
 OBJS__QUOTED += \
 "AD2S1210.obj" \
@@ -99,15 +80,31 @@ OBJS__QUOTED += \
 "F2837xS_Sci.obj" \
 "F2837xS_Spi.obj" \
 "F2837xS_SysCtrl.obj" \
-"F2837xS_sdfm.obj" \
 "F2837xS_struct.obj" \
 "F2837xS_usDelay.obj" \
 "absolute_encoder.obj" \
 "main.obj" 
 
+C_DEPS__QUOTED += \
+"AD2S1210.d" \
+"F2837xS_Adc.d" \
+"F2837xS_CpuTimers.d" \
+"F2837xS_DefaultISR.d" \
+"F2837xS_EPwm.d" \
+"F2837xS_GlobalVariableDefs.d" \
+"F2837xS_Gpio.d" \
+"F2837xS_PieCtrl.d" \
+"F2837xS_PieVect.d" \
+"F2837xS_Sci.d" \
+"F2837xS_Spi.d" \
+"F2837xS_SysCtrl.d" \
+"F2837xS_struct.d" \
+"absolute_encoder.d" \
+"main.d" 
+
 ASM_DEPS__QUOTED += \
-"F2837xS_CodeStartBranch.pp" \
-"F2837xS_usDelay.pp" 
+"F2837xS_CodeStartBranch.d" \
+"F2837xS_usDelay.d" 
 
 C_SRCS__QUOTED += \
 "../AD2S1210.c" \
@@ -122,7 +119,6 @@ C_SRCS__QUOTED += \
 "../F2837xS_Sci.c" \
 "../F2837xS_Spi.c" \
 "../F2837xS_SysCtrl.c" \
-"../F2837xS_sdfm.c" \
 "../F2837xS_struct.c" \
 "../absolute_encoder.c" \
 "../main.c" 

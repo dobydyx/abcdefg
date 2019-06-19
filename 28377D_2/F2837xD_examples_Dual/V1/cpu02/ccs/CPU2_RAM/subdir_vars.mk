@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 ASM_SRCS += \
 ../F2837xD_CodeStartBranch.asm \
@@ -26,6 +28,25 @@ C_SRCS += \
 ../absolute_encoder.c \
 ../main2.c 
 
+C_DEPS += \
+./AD2S1210.d \
+./F2837xD_Adc.d \
+./F2837xD_CpuTimers.d \
+./F2837xD_DefaultISR.d \
+./F2837xD_GlobalVariableDefs.d \
+./F2837xD_Gpio.d \
+./F2837xD_Ipc.d \
+./F2837xD_Ipc_Driver.d \
+./F2837xD_Ipc_Driver_Lite.d \
+./F2837xD_Ipc_Driver_Util.d \
+./F2837xD_PieCtrl.d \
+./F2837xD_PieVect.d \
+./F2837xD_Sci.d \
+./F2837xD_SysCtrl.d \
+./F2837xD_struct.d \
+./absolute_encoder.d \
+./main2.d 
+
 OBJS += \
 ./AD2S1210.obj \
 ./F2837xD_Adc.obj \
@@ -48,46 +69,8 @@ OBJS += \
 ./main2.obj 
 
 ASM_DEPS += \
-./F2837xD_CodeStartBranch.pp \
-./F2837xD_usDelay.pp 
-
-C_DEPS += \
-./AD2S1210.pp \
-./F2837xD_Adc.pp \
-./F2837xD_CpuTimers.pp \
-./F2837xD_DefaultISR.pp \
-./F2837xD_GlobalVariableDefs.pp \
-./F2837xD_Gpio.pp \
-./F2837xD_Ipc.pp \
-./F2837xD_Ipc_Driver.pp \
-./F2837xD_Ipc_Driver_Lite.pp \
-./F2837xD_Ipc_Driver_Util.pp \
-./F2837xD_PieCtrl.pp \
-./F2837xD_PieVect.pp \
-./F2837xD_Sci.pp \
-./F2837xD_SysCtrl.pp \
-./F2837xD_struct.pp \
-./absolute_encoder.pp \
-./main2.pp 
-
-C_DEPS__QUOTED += \
-"AD2S1210.pp" \
-"F2837xD_Adc.pp" \
-"F2837xD_CpuTimers.pp" \
-"F2837xD_DefaultISR.pp" \
-"F2837xD_GlobalVariableDefs.pp" \
-"F2837xD_Gpio.pp" \
-"F2837xD_Ipc.pp" \
-"F2837xD_Ipc_Driver.pp" \
-"F2837xD_Ipc_Driver_Lite.pp" \
-"F2837xD_Ipc_Driver_Util.pp" \
-"F2837xD_PieCtrl.pp" \
-"F2837xD_PieVect.pp" \
-"F2837xD_Sci.pp" \
-"F2837xD_SysCtrl.pp" \
-"F2837xD_struct.pp" \
-"absolute_encoder.pp" \
-"main2.pp" 
+./F2837xD_CodeStartBranch.d \
+./F2837xD_usDelay.d 
 
 OBJS__QUOTED += \
 "AD2S1210.obj" \
@@ -110,9 +93,28 @@ OBJS__QUOTED += \
 "absolute_encoder.obj" \
 "main2.obj" 
 
+C_DEPS__QUOTED += \
+"AD2S1210.d" \
+"F2837xD_Adc.d" \
+"F2837xD_CpuTimers.d" \
+"F2837xD_DefaultISR.d" \
+"F2837xD_GlobalVariableDefs.d" \
+"F2837xD_Gpio.d" \
+"F2837xD_Ipc.d" \
+"F2837xD_Ipc_Driver.d" \
+"F2837xD_Ipc_Driver_Lite.d" \
+"F2837xD_Ipc_Driver_Util.d" \
+"F2837xD_PieCtrl.d" \
+"F2837xD_PieVect.d" \
+"F2837xD_Sci.d" \
+"F2837xD_SysCtrl.d" \
+"F2837xD_struct.d" \
+"absolute_encoder.d" \
+"main2.d" 
+
 ASM_DEPS__QUOTED += \
-"F2837xD_CodeStartBranch.pp" \
-"F2837xD_usDelay.pp" 
+"F2837xD_CodeStartBranch.d" \
+"F2837xD_usDelay.d" 
 
 C_SRCS__QUOTED += \
 "../AD2S1210.c" \

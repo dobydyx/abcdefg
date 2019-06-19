@@ -108,8 +108,8 @@ void ClarkTrans(float abcde[], float abxy0[]);
 void IClarkTrans(float abxy0[], float abcde[]);
 void ParkTrans(float abxy0[], float theta, float dqxy0[]);
 void IParkTrans(float dqxy0[], float theta, float abxy0[]);
-void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out);
-void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
+void NTV_SVPWM(float abxy0[],float Udc,float duty[],int *out);
+void NTV_SVPWM(float abxy0[],float Udc,float duty[],int *out)
 {
     float x=abxy0[0];
     float y=abxy0[1];
@@ -133,7 +133,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
         {
             if (y > 1.3764*x)
             {
-              out=1;
+              *out=1;
               T1  = __divf32((a*value1),(0.4*n*SIN1));
               T2  = __divf32(((1 - a)*x),(0.6472*n*SIN1));
               T3  = __divf32(((1 - a)*value1),(0.6472*n*SIN1));
@@ -146,7 +146,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
             }
             else  if (y < 0.3249*x)
             {
-             out=3;
+             *out=3;
              T1  = a*value3/(0.4*n*SIN1);
              T2  = (1 - a)*(-value2)/(0.6472*n*SIN1);
              T3  = (1 - a)*value3/(0.6472*n*SIN1);
@@ -159,7 +159,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
              }
              else
              {
-              out=2;
+              *out=2;
               T1  = a*(-value1)/(0.4*n*SIN1);
               T2  = (1 - a)*value2/(0.6472*n*SIN1);
               T3  = (1 - a)*(-value1)/(0.6472*n*SIN1);
@@ -175,7 +175,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
         {
             if (y > -1.3764*x)
             {
-              out=10;
+              *out=10;
               T1  = a*value4 /(0.4*n*SIN1);
               T2  = (1 - a)*(-x)/(0.6472*n*SIN1);
               T3  = (1 - a)*value4/(0.6472*n*SIN1);
@@ -188,7 +188,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
             }
             else if (y < -0.3249*x)
             {
-             out=8;
+             *out=8;
              T1  = a*value2/(0.4*n*SIN1);
              T2  = (1 - a)*(-value3)/(0.6472*n*SIN1);
              T3  = (1 - a)*value2/(0.6472*n*SIN1);
@@ -201,7 +201,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
             }
             else
             {
-            out=9;
+            *out=9;
             T1  = a*(-value4)/(0.4*n*SIN1);
             T2  = (1 - a)*value3/(0.6472*n*SIN1);
             T3  = (1 - a)*(-value4)/(0.6472*n*SIN1);
@@ -220,7 +220,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
         {
           if (y < -1.3764*x)
           {
-              out=5;
+              *out=5;
               T1  = a*x/(0.4*n*SIN1);
               T2  = (1 - a)*(-value4)/(0.6472*n*SIN1);
               T3  = (1 - a)*x/(0.6472*n*SIN1);
@@ -233,7 +233,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
           }
           else  if (y > -0.3249*x)
           {
-                 out=3;
+                 *out=3;
                  T1  = a*value3/(0.4*n*SIN1);
                  T2  = (1 - a)*(-value2)/(0.6472*n*SIN1);
                  T3  = (1 - a)*value3/(0.6472*n*SIN1);
@@ -246,7 +246,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
           }
           else
           {
-                 out=4;
+                 *out=4;
                  T1  = a*(-value3)/(0.4*n*SIN1);
                  T2  = (1 - a)*value4/(0.6472*n*SIN1);
                  T3  = (1 - a)*(-value3)/(0.6472*n*SIN1);
@@ -262,7 +262,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
         {
             if (y < 1.3764*x)
             {
-                out=6;
+                *out=6;
                 T1  = a*(-x)/(0.4*n*SIN1);
                 T2  = (1 - a)*(-value1)/(0.6472*n*SIN1);
                 T3  = (1 - a)*(-x)/(0.6472*n*SIN1);
@@ -275,7 +275,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
             }
             else   if (y > 0.3249*x)
             {
-                   out=8;
+                   *out=8;
                    T1  = a*value2/(0.4*n*SIN1);
                    T2  = (1 - a)*(-value3)/(0.6472*n*SIN1);
                    T3  = (1 - a)*value2/(0.6472*n*SIN1);
@@ -289,7 +289,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
 
                 else
                 {
-                   out=7;
+                   *out=7;
                    T1  = a*(-value2)/(0.4*n*SIN1);
                    T2  = (1 - a)*value1/(0.6472*n*SIN1);
                    T3  = (1 - a)*(-value2)/(0.6472*n*SIN1);
@@ -308,7 +308,7 @@ void NTV_SVPWM(float abxy0[],float Udc,float duty[],int out)
     duty[3]=duty_d;
     duty[4]=duty_e;
 }
-void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[], int out1,int out2)
+void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[],int *out1,int *out2)
 {
     /************************************************************
     Description:五相FOC_SVPWM
@@ -318,9 +318,9 @@ void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, 
     static float Uabxy0_OW[5]; //静止坐标系
     float Uabxy0_I1[5]={0,0,0,0,0}; //静止坐标系 第一个逆变器
     float Uabxy0_I2[5]={0,0,0,0,0}; //静止坐标系 第二个逆变器
-    float Udqxy0[5]={0, 4, 0, 0, 0};
-    float duty_I1[5]={0,0,0,0,0};
-    float duty_I2[5]={0,0,0,0,0};
+    float Udqxy0[5]={ud, uq, ux, uy, 0};
+    static float duty_I1[5]={0,0,0,0,0};
+    static float duty_I2[5]={0,0,0,0,0};
     int i=0;
 
     IParkTrans(Udqxy0,theta,Uabxy0_OW);

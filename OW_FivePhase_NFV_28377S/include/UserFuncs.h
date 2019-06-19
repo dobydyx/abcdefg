@@ -57,7 +57,7 @@ void EmfEstCal(float udc[], float duty[], float i2pscs[]);
 float ElecThetaEstCal(float theta);
 float VelocityEstCal(float velocity);
 float PIDCtrl(PID *p, float errin, float kp, float ki, float up, float down);
-void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[], int out1,int out2);
+void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[],int *out1,int *out2);
 //void CtrlAlgo(float giventorque, float deltatheta, float ucap, float psiab0[], float iab0[], float udc[], float theta, float duty[]);            //DTC-OEW-UP
 //void CtrlAlgo(float ud, float uq, float ucap, float idq0[], float udc[], float theta, float duty[]);    //XU DeZhi
 //void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, float duty[]);
