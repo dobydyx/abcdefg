@@ -111,9 +111,9 @@ void IParkTrans(float dqxy0[], float theta, float abxy0[]);
 void NTV_SVPWM(float abxy0[],float Udc,float duty[],int *out);
 void NTV_SVPWM(float abxy0[],float Udc,float duty[],int *out)
 {
-    float x=abxy0[0];
-    float y=abxy0[1];
-    int   n=Udc;
+    float x=abxy0[1];   //beta轴
+    float y=abxy0[0];   //alpha轴
+    int   n=Udc;        //母线电压
     float a=0.2764;
     float SIN1=0.587785252;
     float SIN2=0.951056516;
@@ -315,12 +315,12 @@ void CtrlAlgo(float ud, float uq, float ux, float uy, float udc[], float theta, 
     Input:ud, uq, theta
     Output:duty[]
     ************************************************************/
-    static float Uabxy0_OW[5]; //静止坐标系
+    float Uabxy0_OW[5]; //静止坐标系
     float Uabxy0_I1[5]={0,0,0,0,0}; //静止坐标系 第一个逆变器
     float Uabxy0_I2[5]={0,0,0,0,0}; //静止坐标系 第二个逆变器
     float Udqxy0[5]={ud, uq, ux, uy, 0};
-    static float duty_I1[5]={0,0,0,0,0};
-    static float duty_I2[5]={0,0,0,0,0};
+    float duty_I1[5]={0,0,0,0,0};
+    float duty_I2[5]={0,0,0,0,0};
     int i=0;
 
     IParkTrans(Udqxy0,theta,Uabxy0_OW);
