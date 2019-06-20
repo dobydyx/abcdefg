@@ -1783,3 +1783,31 @@ java.lang.NullPointerException
 
 !ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:10:46.288
 !MESSAGE Indexed 'OW_FivePhase_NFV_28377S' (39 sources, 77 headers) in 2.34 sec: 17,597 declarations; 31,778 references; 2 unresolved inclusions; 285 syntax errors; 229 unresolved names (0.46%)
+
+!ENTRY org.eclipse.egit.core 4 0 2019-06-20 10:36:18.795
+!MESSAGE An exception occurred during push on URI https://gitee.com/dyxdoby/CCSV8_WorkSpace.git: Nothing to push.
+!STACK 0
+org.eclipse.jgit.errors.TransportException: Nothing to push.
+	at org.eclipse.jgit.transport.Transport.push(Transport.java:1298)
+	at org.eclipse.egit.core.op.PushOperation.run(PushOperation.java:189)
+	at org.eclipse.egit.ui.internal.push.PushJob.performJob(PushJob.java:84)
+	at org.eclipse.egit.ui.internal.jobs.RepositoryJob.run(RepositoryJob.java:57)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.egit.ui 4 0 2019-06-20 10:36:18.795
+!MESSAGE Can't connect to any repository: https://gitee.com/dyxdoby/CCSV8_WorkSpace.git (Nothing to push.)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:39:06.646
+!MESSAGE Indexed '13kW_1' (15 sources, 61 headers) in 1.24 sec: 14,727 declarations; 17,470 references; 0 unresolved inclusions; 287 syntax errors; 228 unresolved names (0.7%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:39:07.796
+!MESSAGE Indexed '13kW_normal_cpu01' (19 sources, 64 headers) in 1.13 sec: 15,827 declarations; 19,508 references; 0 unresolved inclusions; 295 syntax errors; 227 unresolved names (0.64%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:39:08.639
+!MESSAGE Indexed '13kW_normal_cpu02' (17 sources, 64 headers) in 0.833 sec: 15,460 declarations; 17,188 references; 0 unresolved inclusions; 294 syntax errors; 228 unresolved names (0.69%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:39:10.012
+!MESSAGE Indexed 'MotorCtrl_28377' (37 sources, 77 headers) in 1.34 sec: 17,527 declarations; 30,794 references; 2 unresolved inclusions; 285 syntax errors; 229 unresolved names (0.47%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-06-20 10:39:10.402
+!MESSAGE Indexed 'usblib' (27 sources, 0 headers) in 0.38 sec: 2,466 declarations; 9,048 references; 301 unresolved inclusions; 1 syntax errors; 6,383 unresolved names (36%)
