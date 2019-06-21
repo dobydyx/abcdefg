@@ -150,6 +150,7 @@ interrupt void EPWM1_ISR(void)
 //    SetDACaValue(I2pRCS[0]*500+1000);
     SetDACaValue(Velocity * 10);
     SetDACbValue(200 * 10);
+//        SetDACaValue(ElecTheta * 500);
 //-----------------------------------------------
 //  电机启停控制
     if(MotorRunFlag == '0' || GpioDataRegs.GPADAT.bit.GPIO24 == 1)
@@ -176,7 +177,7 @@ interrupt void EQEP1_ISR(void)
                 Z信号产生时进入中断，用于清除编码器累计误差
     ************************************************************/
 #if (SENSOR == 0)
-    ElecTheta = 5.767;          //1.767145867;//1.7197188942232836736510610992797
+    ElecTheta = 0.2755;          //1.767145867;//1.7197188942232836736510610992797
 //    ob1++;
 #endif
 
