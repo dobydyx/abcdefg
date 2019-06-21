@@ -35,7 +35,7 @@ int     out1;
 int     out2;
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
-float Udc[2] = {200,0};
+float Udc[2] = {50,0};
 //  PID控制器变量
 PID VelocityPID = {0, 0, 0};
 PID IdPID = {0, 0, 0};
@@ -139,14 +139,17 @@ interrupt void EPWM1_ISR(void)
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
     CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,&out1,&out2);
-////    CtrlAlgo(0, 4, 0, 0 , Udc , 0, DutyCycle,out1,out2);
+//    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
 //    for (i=0 ; i<12 ; i++)
 //    {
 //        DutyCycle[i]=0.05*i;
 //    }
-    SetDACaValue(out1*400);
-    SetDACbValue(out2*400);
+
     SetCMP(DutyCycle);
+//    SetDACaValue(I2pRCS[0]*500+1000);
+//    SetDACaValue(I2pRCS[0]*500+1000);
+    SetDACaValue(Velocity * 10);
+    SetDACbValue(200 * 10);
 //-----------------------------------------------
 //  电机启停控制
     if(MotorRunFlag == '0' || GpioDataRegs.GPADAT.bit.GPIO24 == 1)

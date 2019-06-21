@@ -24,7 +24,7 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 //控制参数
 #define ERRORFLAG 0                                    // 容错标志位 0：正常；1：故障
 #define LOOP_FLAG 2                                    // 0：速度，电流开环；1：速度开环，电流闭环；2：速度，电流闭环，3：MPC
-#define GIVEN_VEL 50                                   // LOOP_FLAG   2状态          给定速度
+#define GIVEN_VEL 200                                   // LOOP_FLAG   2状态          给定速度
 #define GIVEN_TORQUE 80                                // LOOP_FLAG 1,2状态          给定Torque
 #define GIVEN_ID 0                                     // LOOP_FLAG 1,2状态          给定id
 #define GIVEN_IQ 4                                     // LOOP_FLAG   1状态          给定iq
@@ -51,8 +51,8 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 
 //控制器参数
 #define NUM_VV 1                                        //模型预测控制电压的数量，1：单矢量，2：双矢量，3：三矢量
-#define VEL_KP 0.01                                   //0.01速度控制器 kp 0.5 0.004 0.006
-#define VEL_KI 3                                       //5速度控制器 ki 400 10 5 4
+#define VEL_KP 0.04                                   //0.01速度控制器 kp 0.5 0.004 0.006
+#define VEL_KI 50                                       //5速度控制器 ki 400 10 5 4
 #define VEL_UPLIM 10                                     //速度控制器 上限幅 20
 #define VEL_DNLIM -10                                    //速度控制器 下限幅 -20
 
@@ -66,8 +66,8 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 #define ID_UPLIM 100                                    //id控制器 上限幅 150
 #define ID_DNLIM -100                                   //id控制器 下限幅 -150
 
-#define IQ_KP 20                                         //iq控制器 kp 3
-#define IQ_KI 30                                       //iq控制器 ki 100
+#define IQ_KP 30                                         //iq控制器 kp 3
+#define IQ_KI 50                                       //iq控制器 ki 100
 #define IQ_UPLIM 100                                    //iq控制器 上限幅 150
 #define IQ_DNLIM -100                                   //iq控制器 下限幅 -150
 
@@ -146,6 +146,7 @@ typedef enum
 
         //! Transmit remote request message object
         TxRemote,
+
 
         //! Receive message object.
         Rx,
