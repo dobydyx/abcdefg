@@ -47,6 +47,7 @@ int VelCtrlCNT = 1;                                     //速度控制器分频�
 
 //************************************************************************************************************
 int main(void)
+
 {
 //  Initialize System Control:PLL, WatchDog, enable Peripheral Clocks
     InitSysCtrl();
