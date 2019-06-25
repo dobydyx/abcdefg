@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;eqep_freq_cal_cpu01&apos;" deleteContents="false" description="Delete resource &apos;eqep_freq_cal_cpu01&apos;" element1="/eqep_freq_cal_cpu01" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1530773178430"/>
-</session>
