@@ -48,6 +48,7 @@ int VelCtrlCNT = 1;                                     //速度控制器分频�
 //************************************************************************************************************
 int main(void)
 
+
 {
 //  Initialize System Control:PLL, WatchDog, enable Peripheral Clocks
     InitSysCtrl();
@@ -111,8 +112,6 @@ int main(void)
                 SetDACaValue(0);
             //设置DACB输出
                 SetDACbValue(0);
-            //设置DACC输出
-                SetDACcValue(0);
         }                                       //电机停止状态主动采样
     }
 }
@@ -141,16 +140,20 @@ interrupt void EPWM1_ISR(void)
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
     CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,&out1,&out2);
 //    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
-//    for (i=0 ; i<12 ; i++)
+//    for (i=0 ; i<10 ; i++)
 //    {
-//        DutyCycle[i]=0.05*i;
+//        DutyCycle[i]=1.0;
 //    }
-
+////    DutyCycle[4]=1;
+////    DutyCycle[9]=0;
     SetCMP(DutyCycle);
-//    SetDACaValue(I2pRCS[0]*500+1000);
-//    SetDACaValue(I2pRCS[0]*500+1000);
-    SetDACaValue(Velocity * 10);
-    SetDACbValue(200 * 10);
+
+//        SetDACaValue(-1*I2pRCS[4]*300);
+//        SetDACbValue(Velocity*10);
+    SetDACaValue(I2pSCS[0]*1000+1000);
+    SetDACbValue(I2pSCS[1]*500+1000);
+//    SetDACaValue(Velocity * 10);
+//    SetDACbValue(200 * 10);
 //        SetDACaValue(ElecTheta * 500);
 //-----------------------------------------------
 //  电机启停控制

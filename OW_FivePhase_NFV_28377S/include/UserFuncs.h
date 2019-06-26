@@ -79,7 +79,6 @@ void WindingTempSamp(float t[]);
 int IcTempSamp(void);
 void SetDACaValue(int val);
 void SetDACbValue(int val);
-void SetDACcValue(int val);
 
 //AD2S1210旋变解码
 void FaultRegClrAD2S1210();

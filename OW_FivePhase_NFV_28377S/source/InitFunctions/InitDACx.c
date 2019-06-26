@@ -25,13 +25,6 @@ void InitDACs(void)
     DacbRegs.DACOUTEN.bit.DACOUTEN = 1;                         //使能DACOUT
     DacbRegs.DACVALS.all = 0;                                   //初值为零
     DELAY_US(10);                                               // Delay for buffered DAC to power up
-
-    //DACOUTC
-    DaccRegs.DACCTL.bit.DACREFSEL = 1;                          //VREFHI作为参考电压
-    DaccRegs.DACOUTEN.bit.DACOUTEN = 1;                         //使能DACOUT
-    DaccRegs.DACVALS.all = 0;                                   //初值为零
-    DELAY_US(10);                                               // Delay for buffered DAC to power up
-    EDIS;
 }
 
 void SetDACaValue(int val)
@@ -47,9 +40,4 @@ void SetDACbValue(int val)
     DacbRegs.DACVALS.all = val;
     DELAY_US(2);
 }
-void SetDACcValue(int val)
-{
-    //输入0-4095，输出0-3v
-    DaccRegs.DACVALS.all = val;
-    DELAY_US(2);
-}
+
