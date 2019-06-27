@@ -35,7 +35,7 @@ int     out1;
 int     out2;
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
-float Udc[2] = {50,0};
+float Udc[2] = {75,0};
 //  PID控制器变量
 PID VelocityPID = {0, 0, 0};
 PID IdPID = {0, 0, 0};
@@ -47,8 +47,6 @@ int VelCtrlCNT = 1;                                     //速度控制器分频�
 
 //************************************************************************************************************
 int main(void)
-
-
 {
 //  Initialize System Control:PLL, WatchDog, enable Peripheral Clocks
     InitSysCtrl();
@@ -138,20 +136,31 @@ interrupt void EPWM1_ISR(void)
     }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
     PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
-    CtrlAlgo(IdPID.pidout, IqPID.pidout, 0,0,Udc, ElecTheta, DutyCycle,&out1,&out2);
+//    PIDCtrl(&IxPID, 0 - I2pRCS[2], IX_KP, IX_KI, IX_UPLIM, IX_DNLIM);
+//    PIDCtrl(&IyPID, 0 - I2pRCS[3], IY_KP, IY_KI, IY_UPLIM, IY_DNLIM);
+//        PIDCtrl(&IqPID, 8 - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM); //speed openloop
+    CtrlAlgo(IdPID.pidout, IqPID.pidout, IxPID.pidout,IyPID.pidout,Udc, ElecTheta, DutyCycle,&out1,&out2);
 //    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
 //    for (i=0 ; i<10 ; i++)
 //    {
-//        DutyCycle[i]=1.0;
+//        DutyCycle[i]=0.05*i+0.25;
 //    }
 ////    DutyCycle[4]=1;
 ////    DutyCycle[9]=0;
     SetCMP(DutyCycle);
 
-//        SetDACaValue(-1*I2pRCS[4]*300);
-//        SetDACbValue(Velocity*10);
-    SetDACaValue(I2pSCS[0]*1000+1000);
-    SetDACbValue(I2pSCS[1]*500+1000);
+//          SetDACaValue(out1*200);
+//          SetDACbValue(out2*200);
+//      SetDACaValue(I2pRCS[4]*400+2047);
+//      SetDACbValue(Velocity*4.55);
+//        SetDACaValue(I2pSCS[0]*200+2047);
+//        SetDACbValue(I2pSCS[1]*200+2047);
+//    SetDACaValue(I2pSCS[2]*200+2047);
+//    SetDACbValue(I2pSCS[3]*200+2047);
+//        SetDACaValue(I2pRCS[0]*200+2047);
+//        SetDACbValue(I2pRCS[1]*200+2047);
+            SetDACaValue(I2pRCS[2]*200+2047);
+            SetDACbValue(I2pRCS[3]*200+2047);
 //    SetDACaValue(Velocity * 10);
 //    SetDACbValue(200 * 10);
 //        SetDACaValue(ElecTheta * 500);
