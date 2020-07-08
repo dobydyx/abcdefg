@@ -33,6 +33,7 @@ float I2pSCS[PHASE] = {0};                              //两相静止坐标系�
 float I2pRCS[PHASE] = {0};                              //两相旋转坐标系电流(A)
 int     out1;
 int     out2;
+int index_old=2;
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
 float Udc[2] = {75,0};
@@ -43,9 +44,33 @@ PID IqPID = {0, 0, 0};                      //结构体参数{iacc, lasterr, pid
 PID IxPID = {0, 0, 0};
 PID IyPID = {0, 0, 0};
 int VelCtrlCNT = 1;                                     //速度控制器分频计数
-
-
+float INV1_duty[10][5]={{1,0.618,0,0,0.618},//1
+                       {1,1,0.382,0,0.382},//2
+                       {0.618,1,0.618,0,0},//3
+                       {0.382,1,1,0.382,0},//4
+                       {0,0.618,1,0.618,0},//5
+                       {0,0.382,1,1,0.382},//6
+                       {0,0,0.618,1,0.618},//7
+                       {0.382,0,0.382,1,1},//8
+                       {0.618,0,0,0.618,1},//9
+                       {1,0.382,0,0.382,1}};//10
+float INV2_duty[10][5]={{0,0.382,1,1,0.382},//1
+                        {0,0,0.618,1,0.618},//2
+                        {0.382,0,0.382,1,1},//3
+                        {0.618,0,0,0.618,1},//4
+                        {1,0.382,0,0.382,1},//5
+                        {1,0.618,0,0,0.618},//6
+                        {1,1,0.382,0,0.382},//7
+                        {0.618,1,0.618,0,0},//8
+                        {0.382,1,1,0.382,0},//9
+                        {0,0.618,1,0.618,0}};//10
+float INV_VV_Real_Unit[10]={0.5527696,0.4472,0.1708152,-0.1708152,-0.4472,-0.5527696,-0.4472,-0.1708152,0.1708152,0.4472};
+float INV_VV_Imag_Unit[10]={0,0.3248954,0.5256918,0.5256918,0.3248954,0,-0.3248954,-0.5256918,-0.5256918,-0.3248954};
 //************************************************************************************************************
+float INV_VV_Real[10]={0};
+float INV_VV_Imag[10]={0};
+float Ualbek[5]={0};
+float Udqk[5]=0;
 int main(void)
 {
 //  Initialize System Control:PLL, WatchDog, enable Peripheral Clocks
@@ -86,8 +111,12 @@ int main(void)
 //  Enable global Interrupts and higher priority real-time debug events:
     EINT;  // Enable Global interrupt INTM
     ERTM;  // Enable Global realtime interrupt DBGM
-
-
+    int ii=0;
+    for(ii=0;ii<10;ii++)
+    {
+        INV_VV_Real[ii]=Udc[0]*INV_VV_Real_Unit[ii]*2;
+        INV_VV_Imag[ii]=Udc[0]*INV_VV_Imag_Unit[ii]*2;
+    }
 //  test code end
     while(1)
     {
@@ -139,8 +168,26 @@ interrupt void EPWM1_ISR(void)
 //    PIDCtrl(&IxPID, 0 - I2pRCS[2], IX_KP, IX_KI, IX_UPLIM, IX_DNLIM);
 //    PIDCtrl(&IyPID, 0 - I2pRCS[3], IY_KP, IY_KI, IY_UPLIM, IY_DNLIM);
 //        PIDCtrl(&IqPID, 8 - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM); //speed openloop
-    CtrlAlgo(IdPID.pidout, IqPID.pidout, IxPID.pidout,IyPID.pidout,Udc, ElecTheta, DutyCycle,&out1,&out2);
-//    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
+//    CtrlAlgo(IdPID.pidout, IqPID.pidout, IxPID.pidout,IyPID.pidout,Udc, ElecTheta, DutyCycle,&out1,&out2);
+//MPC 20200708
+    DutyCycle[0]=INV1_duty[index_old][0];
+    DutyCycle[1]=INV1_duty[index_old][1];
+    DutyCycle[2]=INV1_duty[index_old][2];
+    DutyCycle[3]=INV1_duty[index_old][3];
+    DutyCycle[4]=INV1_duty[index_old][4];
+    DutyCycle[5]=INV2_duty[index_old][0];
+    DutyCycle[6]=INV2_duty[index_old][1];
+    DutyCycle[7]=INV2_duty[index_old][2];
+    DutyCycle[8]=INV2_duty[index_old][3];
+    DutyCycle[9]=INV2_duty[index_old][4];
+    SetCMP(DutyCycle);
+    EMFdk=-OmegaeE*MOTOR_LQ*iq1;
+    EMFqk=OmegaeE*MOTOR_LD*id1+OmegaeE*Psif;
+    Ualbek[0]=INV_VV_Real[index_old];
+    Ualbek[1]=INV_VV_Imag[index_old];
+    ParkTrans(Ualbek, ElecTheta, Udqk);
+
+    //    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
 //    for (i=0 ; i<10 ; i++)
 //    {
 //        DutyCycle[i]=0.05*i+0.25;
