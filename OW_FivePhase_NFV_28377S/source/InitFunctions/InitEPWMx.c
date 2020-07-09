@@ -453,6 +453,7 @@ void InitEPwms(void)
     InitEPwm8();
     InitEPwm9();
     InitEPwm10();
+    InitEPwm11();
 #endif
 #if(PWM_NUM == 12 )
     InitEPwm11();
@@ -477,14 +478,15 @@ void SetCMP(float duty[])
 //* board2
     EPwm4Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[3]); //A phase   epwm4
     EPwm6Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[4]); //B phase   epwm5
-    EPwm7Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[5]); //C phase   epwm6
+//    EPwm7Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[5]); //C phase   epwm6
 #endif
 #if (PWM_NUM == 12 || PWM_NUM == 10)
 //* board3 &* board4
-    EPwm8Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[6]); //A phase   epwm7
-    EPwm9Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[7]); //B phase   epwm8
-    EPwm10Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[8]); //C phase  epwm9
-    EPwm11Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[9]); //A phase   epwm10
+    EPwm8Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[5]); //A phase   epwm7
+    EPwm9Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[6]); //B phase   epwm8
+    EPwm10Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[7]); //C phase  epwm9
+    EPwm11Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[8]); //A phase   epwm10
+    EPwm5Regs.CMPA.bit.CMPA = EPWM_PRD * (1 - duty[9]); //B phase   epwm11
 #endif
 #if (PWM_NUM == 12)
 //* board4

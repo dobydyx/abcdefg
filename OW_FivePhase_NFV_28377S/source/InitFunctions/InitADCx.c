@@ -198,11 +198,11 @@ void LineCurSamp(float i[])
     i[11] = __divf32(((int)AdcdResultRegs.ADCRESULT12 - 1979), 16.06274);  //IC4
 #endif
 #if(PHASE == 5 && PWM_NUM == 10)//五相开绕组用
-    i[0] = __divf32(((int)AdcaResultRegs.ADCRESULT12 - 1995), 16.06274);  //IA1
-    i[1] = __divf32(((int)AdcaResultRegs.ADCRESULT14 - 1985), 16.06274);  //IB1
-    i[2] = __divf32(((int)AdccResultRegs.ADCRESULT12 - 2000), 16.06274);  //IC1    (RESULT - 2047.5[偏置]) / (4095 / 100[量程(-50A~50A)])
-    i[3] = __divf32(((int)AdcaResultRegs.ADCRESULT13 - 2010), 16.06274);  //IA2
-    i[4] = __divf32(((int)AdccResultRegs.ADCRESULT11 - 2010), 16.06274);  //IB2
+    i[0] = __divf32(((int)AdcaResultRegs.ADCRESULT12 - 2010), 16.06274);  //IA1
+    i[1] = __divf32(((int)AdcaResultRegs.ADCRESULT14 - 2010), 16.06274);  //IB1
+    i[2] = __divf32(((int)AdccResultRegs.ADCRESULT12 - 2048), 16.06274);  //IC1    (RESULT - 2047.5[偏置]) / (4095 / 100[量程(-50A~50A)])
+    i[3] = __divf32(((int)AdcaResultRegs.ADCRESULT13 - 2048), 16.06274);  //IA2
+    i[4] = __divf32(((int)AdccResultRegs.ADCRESULT11 - 2040), 16.06274);  //IB2
 #endif
 }
 
