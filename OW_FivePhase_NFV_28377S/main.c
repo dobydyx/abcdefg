@@ -33,7 +33,7 @@ float I2pSCS[PHASE] = {0};                              //两相静止坐标系�
 float I2pRCS[PHASE] = {0};                              //两相旋转坐标系电流(A)
 int     out1;
 int     out2;
-int index_old=2;
+
 //  系统状态变量
 float DutyCycle[PWM_NUM] = {0};                         //桥臂占空比
 float Udc[2] = {75,0};
@@ -70,7 +70,11 @@ float INV_VV_Imag_Unit[10]={0,0.3248954,0.5256918,0.5256918,0.3248954,0,-0.32489
 float INV_VV_Real[10]={0};
 float INV_VV_Imag[10]={0};
 float Ualbek[5]={0};
+float Ualbek1[5]={0};
 float Udqk[5]=0;
+float Udqk1[5]=0;
+int index_V1=0;
+float OmegaeE=0;
 int main(void)
 {
 //  Initialize System Control:PLL, WatchDog, enable Peripheral Clocks
@@ -157,36 +161,54 @@ interrupt void EPWM1_ISR(void)
     ParkTrans(I2pSCS, ElecTheta, I2pRCS);    //坐标变换
 
     Velocity = VelocityCal(Velocity);        //速度计算
-
+    OmegaeE=__divf32(Velocity,9.5493)*POLE_PAIRS;
     if(VelCtrlCNT++ == 50)
     {
         PIDCtrl(&VelocityPID, GIVEN_VEL - Velocity, VEL_KP, VEL_KI, VEL_UPLIM, VEL_DNLIM);
         VelCtrlCNT = 1;
     }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
-    PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
-    PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
+//    PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
+//    PIDCtrl(&IqPID, VelocityPID.pidout - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM);
 //    PIDCtrl(&IxPID, 0 - I2pRCS[2], IX_KP, IX_KI, IX_UPLIM, IX_DNLIM);
 //    PIDCtrl(&IyPID, 0 - I2pRCS[3], IY_KP, IY_KI, IY_UPLIM, IY_DNLIM);
 //        PIDCtrl(&IqPID, 8 - I2pRCS[1], IQ_KP, IQ_KI, IQ_UPLIM, IQ_DNLIM); //speed openloop
 //    CtrlAlgo(IdPID.pidout, IqPID.pidout, IxPID.pidout,IyPID.pidout,Udc, ElecTheta, DutyCycle,&out1,&out2);
 //MPC 20200708
-    DutyCycle[0]=INV1_duty[index_old][0];
-    DutyCycle[1]=INV1_duty[index_old][1];
-    DutyCycle[2]=INV1_duty[index_old][2];
-    DutyCycle[3]=INV1_duty[index_old][3];
-    DutyCycle[4]=INV1_duty[index_old][4];
-    DutyCycle[5]=INV2_duty[index_old][0];
-    DutyCycle[6]=INV2_duty[index_old][1];
-    DutyCycle[7]=INV2_duty[index_old][2];
-    DutyCycle[8]=INV2_duty[index_old][3];
-    DutyCycle[9]=INV2_duty[index_old][4];
+    idref=0;
+    iqref=VelocityPID.pidout;
+    DutyCycle[0]=INV1_duty[index_V1][0];
+    DutyCycle[1]=INV1_duty[index_V1][1];
+    DutyCycle[2]=INV1_duty[index_V1][2];
+    DutyCycle[3]=INV1_duty[index_V1][3];
+    DutyCycle[4]=INV1_duty[index_V1][4];
+    DutyCycle[5]=INV2_duty[index_V1][0];
+    DutyCycle[6]=INV2_duty[index_V1][1];
+    DutyCycle[7]=INV2_duty[index_V1][2];
+    DutyCycle[8]=INV2_duty[index_V1][3];
+    DutyCycle[9]=INV2_duty[index_V1][4];
     SetCMP(DutyCycle);
-    EMFdk=-OmegaeE*MOTOR_LQ*iq1;
-    EMFqk=OmegaeE*MOTOR_LD*id1+OmegaeE*Psif;
-    Ualbek[0]=INV_VV_Real[index_old];
-    Ualbek[1]=INV_VV_Imag[index_old];
+    EMFdk=-OmegaeE*MOTOR_LQ*I2pRCS[1];
+    EMFqk=OmegaeE*MOTOR_LD*I2pRCS[0]+OmegaeE*MOTOR_PSI;
+    Ualbek[0]=INV_VV_Real[index_V1];
+    Ualbek[1]=INV_VV_Imag[index_V1];
     ParkTrans(Ualbek, ElecTheta, Udqk);
-
+    Idk1=I2pRCS[0]+TS*(__divf32((Ualbek[0]-MOTOR_RS*I2pRCS[0]-EMFdk),MOTOR_LD));
+    Iqk1=I2pRCS[1]+TS*(__divf32((Ualbek[1]-MOTOR_RS*I2pRCS[1]-EMFqk),MOTOR_LQ));
+    index_V1=0;
+    int g[10]=0;
+    for(ii=0;ii<10;ii++)
+    {
+        Ualbek1[0]=INV_VV_Real[ii];
+        Ualbek1[1]=INV_VV_Imag[ii];
+        ParkTrans(Ualbek1, ElecTheta, Udqk1);
+        Idk2=Idk1+TS*(__divf32((Ualbek1[0]-MOTOR_RS*Idk1-EMFdk),MOTOR_LD));
+        Iqk2=Iqk1+TS*(__divf32((Ualbek1[1]-MOTOR_RS*Iqk1-EMFqk),MOTOR_LQ));
+        g[ii]=(idref-Idk2)*(idref-Idk2)+(iqref-Iqk2)*(iqref-Iqk2);
+        if(g[index_V1]>g[ii])
+        {
+            index_V1=ii;
+        }
+    }
     //    CtrlAlgo(0, 2, 0, 0 , Udc , ElecTheta, DutyCycle,&out1,&out2);
 //    for (i=0 ; i<10 ; i++)
 //    {
