@@ -20,7 +20,8 @@ Description:系统参数定义，电机参数定义，控制参数定义，常�
 #define TS   0.00005                 //0.00005 采样周期 1/10k
 #define EPWM_PRD SYS_FREQ / (4 * SWICH_FREQ)            // 无需修改，自动计算得到。ePWM模块频率(100000k)默认为1/2主频(200000k)，三角载波周期为2*EPWMPRD
 #define DB_TIME 100                                     // 死区时间DBTIME/ePWM模块频率，200M下，400->4us
-
+#define AlgorithMode  1                                 // 0:CBPWM 1:MPCC-V 2:MPCC-V-Duty
+                                                        // 3:MPCC-VV 4:MPCC-VVV
 //控制参数
 #define ERRORFLAG 0                                    // 容错标志位 0：正常；1：故障
 #define LOOP_FLAG 2                                    // 0：速度，电流开环；1：速度开环，电流闭环；2：速度，电流闭环，3：MPC

@@ -175,8 +175,9 @@ interrupt void EPWM1_ISR(void)
         PIDCtrl(&VelocityPID, GIVEN_VEL - Velocity, VEL_KP, VEL_KI, VEL_UPLIM, VEL_DNLIM);
         VelCtrlCNT = 1;
     }                                                      //速度控制，50倍的电流控制周期，判断顺序待调整
-    CBPWM();
-//    MPCC_V();
+//    CBPWM();
+
+    MPCC_V();
 //    for (i=0 ; i<10 ; i++)
 //    {
 //        DutyCycle[i]=0.05*i+0.25;
@@ -238,6 +239,7 @@ interrupt void EQEP1_ISR(void)
     EQep1Regs.QCLR.bit.INT = 1;
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP5;
 }
+#if (AlgorithMode==0)
 void CBPWM()
 {
     PIDCtrl(&IdPID, GIVEN_ID - I2pRCS[0], ID_KP, ID_KI, ID_UPLIM, ID_DNLIM);
@@ -245,6 +247,8 @@ void CBPWM()
     CtrlAlgo(IdPID.pidout, IqPID.pidout, IxPID.pidout,IyPID.pidout,Udc, ElecTheta, DutyCycle,&out1,&out2);
     SetCMP(DutyCycle);
 }
+#endif
+#if (AlgorithMode==1)
 void MPCC_V()
 {
     DutyCycle[0]=INV1_duty[index_V1][0];
@@ -281,4 +285,6 @@ void MPCC_V()
         }
     }
 }
+#endif
+
 // End of file
